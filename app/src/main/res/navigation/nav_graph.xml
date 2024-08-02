@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.matrix.android105_android.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.matrix.android105_android.ShopFragment"
+        android:label="fragment_shop"
+        tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/bonusFragment"
+        android:name="com.matrix.android105_android.BonusFragment"
+        android:label="fragment_bonus"
+        tools:layout="@layout/fragment_bonus" />
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.matrix.android105_android.ServicesFragment"
+        android:label="fragment_services"
+        tools:layout="@layout/fragment_services" />
+    <fragment
+        android:id="@+id/profilFragment"
+        android:name="com.matrix.android105_android.ProfilFragment"
+        android:label="fragment_profil"
+        tools:layout="@layout/fragment_profil" />
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="com.example.myapplication.SplashActivity"
+        android:label="SplashActivity" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.matrix.android105_android.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+</navigation>
