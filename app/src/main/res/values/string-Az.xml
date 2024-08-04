@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+
+
+    <string name="Home">Əsas</string>
+    <string name="Shop">Mağaza</string>
+    <string name="Bonus">Bonus</string>
+    <string name="Services">Xidmətlər</string>
+    <string name="Profil">Kabinet</string>
+</resources>
