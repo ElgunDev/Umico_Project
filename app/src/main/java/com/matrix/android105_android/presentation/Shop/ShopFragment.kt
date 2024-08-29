@@ -1,4 +1,4 @@
-package com.matrix.android105_android.Profil
+package com.matrix.android105_android.presentation.Shop
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.matrix.android105_android.R
 
 
-class ProfilFragment : Fragment() {
+class ShopFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class ProfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profil, container, false)
+        return inflater.inflate(R.layout.fragment_shop, container, false)
     }
 
 
