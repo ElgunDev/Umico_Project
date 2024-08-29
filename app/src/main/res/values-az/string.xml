@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mənim ərizəm</string>
+    <string name="hello_blank_fragment">Salam boş fraqment</string>
+    <string name="Home">Ev</string>
+    <string name="Shop">Mağaza</string>
+    <string name="Bonus">Bonus</string>
+    <string name="Services">Xidmətlər</string>
+    <string name="Profil">Profil</string>
+    <string name="name">Salam, Elgün</string>
+    <string name="search">Umico Market-də məhsul axtarışı</string>
+</resources>

@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.matrix.android105_android.Home.HomeFragment"
+        android:name="com.matrix.android105_android.presentation.Home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.matrix.android105_android.Shop.ShopFragment"
+        android:name="com.matrix.android105_android.presentation.Shop.ShopFragment"
         android:label="fragment_shop"
         tools:layout="@layout/fragment_shop" />
     <fragment
@@ -22,21 +22,26 @@
         tools:layout="@layout/fragment_bonus" />
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.matrix.android105_android.Services.ServicesFragment"
+        android:name="com.matrix.android105_android.presentation.Services.ServicesFragment"
         android:label="fragment_services"
         tools:layout="@layout/fragment_services" />
     <fragment
         android:id="@+id/profilFragment"
-        android:name="com.matrix.android105_android.Profil.ProfilFragment"
+        android:name="com.matrix.android105_android.presentation.Profil.ProfilFragment"
         android:label="fragment_profil"
         tools:layout="@layout/fragment_profil" />
-    <activity
-        android:id="@+id/splashActivity"
-        android:name="com.example.myapplication.SplashActivity"
-        android:label="SplashActivity" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.matrix.android105_android.MainFragment"
+        android:name="com.matrix.android105_android.presentation.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.matrix.android105_android.presentation.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
