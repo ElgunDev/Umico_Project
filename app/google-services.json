@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "762422231656",
+    "project_id": "umicoapp-8a311",
+    "storage_bucket": "umicoapp-8a311.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762422231656:android:1e427a21662b7dec8d71dd",
+        "android_client_info": {
+          "package_name": "com.matrix.android105_android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr3B4VBfCdyrDd93ddCShBndk-Bi7_g4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

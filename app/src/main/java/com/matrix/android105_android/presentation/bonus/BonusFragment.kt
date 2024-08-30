@@ -1,4 +1,4 @@
-package com.matrix.android105_android.bonus
+package com.matrix.android105_android.presentation.bonus
 
 import android.os.Bundle
 import android.view.LayoutInflater
