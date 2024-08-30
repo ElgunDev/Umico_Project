@@ -5,6 +5,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("kotlin-kapt")
     id ("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 
 
 
@@ -82,6 +83,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
+    implementation ("com.hbb20:ccp:X.Y.Z")
+
+
 }
 kapt{
     correctErrorTypes = true

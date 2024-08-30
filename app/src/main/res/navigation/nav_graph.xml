@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_shop" />
     <fragment
         android:id="@+id/bonusFragment"
-        android:name="com.matrix.android105_android.bonus.BonusFragment"
+        android:name="com.matrix.android105_android.presentation.bonus.BonusFragment"
         android:label="fragment_bonus"
         tools:layout="@layout/fragment_bonus" />
     <fragment

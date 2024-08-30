@@ -8,7 +8,7 @@ import com.matrix.android105_android.presentation.Home.HomeFragment
 import com.matrix.android105_android.presentation.Profil.ProfilFragment
 import com.matrix.android105_android.presentation.Services.ServicesFragment
 import com.matrix.android105_android.presentation.Shop.ShopFragment
-import com.matrix.android105_android.bonus.BonusFragment
+import com.matrix.android105_android.presentation.bonus.BonusFragment
 
 
 class PageAdapter(fragmentManager: FragmentManager , lifecycle: Lifecycle ):FragmentStateAdapter(fragmentManager, lifecycle) {
@@ -20,7 +20,7 @@ class PageAdapter(fragmentManager: FragmentManager , lifecycle: Lifecycle ):Frag
        return when(position){
            0-> HomeFragment()
            1-> ShopFragment()
-           2->BonusFragment()
+           2-> BonusFragment()
            3-> ServicesFragment()
            4-> ProfilFragment()
            else -> HomeFragment()
