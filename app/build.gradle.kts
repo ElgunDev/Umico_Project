@@ -84,7 +84,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
-    implementation ("com.hbb20:ccp:X.Y.Z")
+
 
 
 }
