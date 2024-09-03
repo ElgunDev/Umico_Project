@@ -1,22 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LogInFragment">
+    tools:context=".presentation.Login.LogInFragment">
 
     <TextView
         android:id="@+id/txtEnterPhoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
         android:text="@string/enterPhoneNumber"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdLineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <TextView
+        android:id="@+id/txtPhoneNumberText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/gdlineLeft"
+        app:layout_constraintRight_toRightOf="@id/gdLineRight"
+        app:layout_constraintTop_toBottomOf="@id/gdLineTop"
+        android:text="@string/PhoneNumber"
+
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        android:layout_marginLeft="10dp"
         />
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="@id/gdlineLeft"
+        app:layout_constraintTop_toBottomOf="@id/txtPhoneNumberText"
+        app:layout_constraintRight_toRightOf="@id/gdLineRight"
+        android:paddingVertical="5dp"
+        >
+        
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:ccp_autoDetectCountry="true"
+            app:ccp_showFlag="true"
+            app:ccp_showFullName="false"
+            app:ccp_showNameCode="false"
+            app:ccp_showPhoneCode="true"
+            app:ccp_defaultNameCode="AZ"
+            />
+        <EditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/PhoneNumber"
+            android:inputType="phone"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/gdlineLeft"
+        app:layout_constraintRight_toRightOf="@id/gdLineRight"
+        app:layout_constraintTop_toBottomOf="@id/linear1"
+        android:layout_marginTop="10dp"
+        android:text="@string/LogIn"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@color/Purple"
+        />
+
+    <TextView
+        android:id="@+id/txtInfromation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/gdlineLeft"
+        app:layout_constraintRight_toRightOf="@id/gdLineRight"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        android:layout_marginTop="30dp"
+        android:text="@string/Information"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:textColor="@color/gray"
+
+        />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/CCPSelectLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/gdlineLeft"
+        app:layout_constraintRight_toRightOf="@id/gdLineRight"
+        app:layout_constraintTop_toBottomOf="@id/txtInfromation"
+        android:layout_marginTop="40dp"
+        app:ccp_showFlag="true"
+        app:ccp_showFullName="true"
+        app:ccp_showNameCode="false"
+        app:ccp_showPhoneCode="false"
+        app:ccp_customMasterCountries="US,AZ"
+        app:ccp_defaultNameCode="AZ"
+        />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdlineLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gdLineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

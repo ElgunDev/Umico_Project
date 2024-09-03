@@ -6,6 +6,7 @@ plugins {
     id("kotlin-kapt")
     id ("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
+    id("com.google.dagger.hilt.android")
 
 
 
@@ -84,6 +85,12 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.core:core-splashscreen:1.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
+    implementation ("com.hbb20:ccp:2.5.0")
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation ("com.google.firebase:firebase-firestore-ktx")
+
 
 
 

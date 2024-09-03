@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Umico</string>
 
 
     <string name="Home">Home</string>
@@ -9,5 +9,11 @@
     <string name="Profil">Profil</string>
     <string name="name">Hello, Elgün</string>
     <string name="search">Product search on Umico Market</string>
-    <string name="enterPhoneNumber">Enter your phone number</string>
+    <string name="enterPhoneNumber">Enter your contact number</string>
+    <string name="PhoneNumber">Phone number</string>
+    <string name="LogIn">LogIn</string>
+    <string name="Information">by clicking forward user agreement Umico Bonus, user agreement Umico Market and privacy policy</string>
+    <string name="WriteVeritificationCode">Enter the code received via SMS</string>
+    <string name="EnterCode">Enter the code sent to your phone number via SMS</string>
+    <string name="Verifity">Verifity</string>
 </resources>

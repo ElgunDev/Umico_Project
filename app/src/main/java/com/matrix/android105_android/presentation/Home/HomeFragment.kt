@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
