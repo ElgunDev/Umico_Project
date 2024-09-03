@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mənim ərizəm</string>
+    <string name="app_name">Umico</string>
     <string name="hello_blank_fragment">Salam boş fraqment</string>
     <string name="Home">Ev</string>
     <string name="Shop">Mağaza</string>
@@ -9,5 +9,12 @@
     <string name="Profil">Profil</string>
     <string name="name">Salam, Elgün</string>
     <string name="search">Umico Market-də məhsul axtarışı</string>
-    <string name="enterPhoneNumber">Telofon nömrənizi daxil edin</string>
+    <string name="enterPhoneNumber">Əlaqə nömrənizi qeyd edin</string>
+    <string name="PhoneNumber">Telefon nömrəsi</string>
+    <string name="LogIn">Irəli</string>
+    <string name="Information">irəli klikləməklə istifadəçi razılaşması Umico Bonus, istifadəçirazılaşması Umico Market və məxfilik siyasəti</string>
+    <string name="WriteVeritificationCode">SMS vasitəsilə gələn kodu qeyd edin</string>
+    <string name="EnterCode">SMS vasitəsilə telefona nömrəsinə göndərilən kodu daxil edin</string>
+    <string name="Verifity">Doğrulayın</string>
+
 </resources>
