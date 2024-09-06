@@ -61,7 +61,7 @@
 
         <EditText
             android:id="@+id/edtCode1"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:imeOptions="actionNext"
@@ -73,7 +73,7 @@
 
         <EditText
             android:id="@+id/edtCode2"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
 
             android:gravity="center"
@@ -88,7 +88,7 @@
 
         <EditText
             android:id="@+id/edtCode3"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
 
             android:gravity="center"
@@ -102,9 +102,34 @@
 
         <EditText
             android:id="@+id/edtCode4"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
              android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_edit_text_code"/>
+
+        <EditText
+            android:id="@+id/edtCode5"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_edit_text_code"/>
+        <EditText
+            android:id="@+id/edtCode6"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:imeOptions="actionDone"
             android:inputType="number"

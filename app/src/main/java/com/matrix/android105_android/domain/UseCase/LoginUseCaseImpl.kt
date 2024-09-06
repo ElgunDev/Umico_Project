@@ -11,7 +11,8 @@ class LoginUseCaseImpl @Inject constructor(
     override suspend fun sendVerificationCode(
         phoneNumber: String,
         callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    ) {
+    )
+    {
         iAuthRepository.sendVerificationCode(phoneNumber,callbacks)
     }
 

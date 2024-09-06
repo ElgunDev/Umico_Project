@@ -1,6 +1,7 @@
 package com.matrix.android105_android.data.Repository.Login
 
 import android.app.Activity
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
@@ -18,34 +19,46 @@ class AuthImplRepository @Inject constructor(
 ):IAuthRepository {
     override suspend fun sendVerificationCode(
         phoneNumber: String,
-        callback: PhoneAuthProvider.OnVerificationStateChangedCallbacks,
+        callback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     ) {
         val options = PhoneAuthOptions.newBuilder(firebaseAuth)
-                .setPhoneNumber(phoneNumber)
-                .setTimeout(60L , TimeUnit.SECONDS)
-                .setCallbacks(callback)
-                .build()
-               PhoneAuthProvider.verifyPhoneNumber(options)
-
-
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(60L , TimeUnit.SECONDS)
+            .setCallbacks(callback)
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+
     override suspend fun signInWithCredential(credential: PhoneAuthCredential): FirebaseUser? {
-        val authResult = firebaseAuth.signInWithCredential(credential).await()
-        return authResult.user
+       return try {
+           val authResult = firebaseAuth.signInWithCredential(credential).await()
+           authResult.user
+       }
+       catch (e:Exception){
+           null
+       }
     }
 
     override suspend fun saveUserToFirestore(user: FirebaseUser, additionalData: Map<String, Any>) {
         val userMap = mapOf(
             "uid" to user.uid,
-            "phoneNumber" to user.phoneNumber,
-            "email" to user.email
+            "phoneNumber" to user.phoneNumber
         )+additionalData
-        firestore.collection("users").document(user.uid).set(userMap).await()
+        try {
+            firestore.collection("users").document(user.uid).set(userMap).await()
+        }
+        catch (e:Exception){
+        }
     }
 
     override suspend fun checkUserExist(uid: String): Boolean {
-        val document = firestore.collection("users").document(uid).get().await()
-        return document.exists()
+      return try {
+          val document = firestore.collection("users").document(uid).get().await()
+           document.exists()
+      }
+      catch (e:Exception){
+          false
+      }
     }
 }

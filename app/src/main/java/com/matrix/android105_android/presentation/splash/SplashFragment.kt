@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.matrix.android105_android.R
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
 
