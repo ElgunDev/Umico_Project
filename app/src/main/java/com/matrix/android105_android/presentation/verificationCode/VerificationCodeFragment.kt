@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.PhoneAuthProvider
 import com.matrix.android105_android.R
@@ -38,12 +40,13 @@ class VerificationCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         click()
+        observe()
         setupEditTexts()
     }
 
 
     private fun setupEditTexts() {
-        val editTexts = listOf(binding.edtCode1, binding.edtCode2, binding.edtCode3, binding.edtCode4)
+        val editTexts = listOf(binding.edtCode1, binding.edtCode2, binding.edtCode3, binding.edtCode4,binding.edtCode5,binding.edtCode6)
 
         for (i in editTexts.indices) {
             editTexts[i].addTextChangedListener(object : TextWatcher {
@@ -88,6 +91,19 @@ class VerificationCodeFragment : Fragment() {
         val code2 = binding.edtCode2.text.toString()
         val code3 = binding.edtCode3.text.toString()
         val code4 = binding.edtCode4.text.toString()
-        return code1 + code2 + code3 + code4
+        val code5 = binding.edtCode5.text.toString()
+        val code6 = binding.edtCode6.text.toString()
+        return code1 + code2 + code3 + code4 + code5 + code6
     }
+    fun observe(){
+        LoginViewModel.verificationState.observe(viewLifecycleOwner){success->
+            if (success){
+                findNavController().navigate(R.id.action_verificationCodeFragment_to_mainFragment)
+            }
+            else {
+                Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 }

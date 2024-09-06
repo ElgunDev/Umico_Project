@@ -21,7 +21,6 @@ import java.util.Locale
 class LogInFragment : Fragment() {
     lateinit var binding: FragmentLogInBinding
     private val loginViewModel:LoginViewModel by viewModels()
-    private lateinit var verificationId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +36,9 @@ class LogInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       click()
-        observe()
+        observeErrorMessage()
+        observeVerificationId()
+        click()
         loginViewModel.selectedLocale.observe(viewLifecycleOwner){
             setLocale(it)
             updateUITexts()
@@ -47,7 +47,19 @@ class LogInFragment : Fragment() {
         binding.CCPSelectLanguage.setOnCountryChangeListener {
             loginViewModel.updateLocaleCountry(binding.CCPSelectLanguage.selectedCountryNameCode)
         }
+        click()
+    }
 
+    fun observeVerificationId(){
+        loginViewModel.verificationId.observe(viewLifecycleOwner){
+            val action = LogInFragmentDirections.actionLogInFragmentToVerificationCodeFragment(verificationId = it)
+            findNavController().navigate(action)
+        }
+    }
+    fun observeErrorMessage(){
+        loginViewModel.verificationError.observe(viewLifecycleOwner){errorMessage->
+            Toast.makeText(context , errorMessage , Toast.LENGTH_SHORT ).show()
+        }
     }
 
     private fun setLocale(locale:Locale){
@@ -62,44 +74,19 @@ class LogInFragment : Fragment() {
         binding.txtPhoneNumberText.text = getString(R.string.PhoneNumber)
         binding.txtEnterPhoneNumber.text = getString(R.string.enterPhoneNumber)
         binding.edtPhoneNumber.hint = getString(R.string.PhoneNumber)
-
     }
+
 
     fun click(){
         binding.btnLogin.setOnClickListener(){
-            val phoneNumber = binding.edtPhoneNumber.text.toString()
-            loginViewModel.sendVerificationCode(phoneNumber,callback)
-            val action = LogInFragmentDirections.actionLogInFragmentToVerificationCodeFragment(verificationId)
-            findNavController().navigate(action)
+            val phoneNumber ="+994"+ binding.edtPhoneNumber.text.toString()
+            loginViewModel.sendVerificationCode(phoneNumber)
+
         }
     }
 
-    private val callback = object :PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
-        override fun onVerificationCompleted(creditial: PhoneAuthCredential) {
-            loginViewModel.verifyCodeAndLogin(creditial)
-        }
 
-        override fun onVerificationFailed(e: FirebaseException) {
-            Toast.makeText(context, "Verification Failed: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
-        override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-            this@LogInFragment.verificationId= verificationId
-            Toast.makeText(context, "Code Sent", Toast.LENGTH_SHORT).show()
-        }
 
-    }
-
-    private fun observe(){
-        loginViewModel.verificationState.observe(viewLifecycleOwner){success->
-            if (success){
-              findNavController().navigate(R.id.action_verificationCodeFragment_to_mainFragment)
-            }
-            else {
-                // Handle failure
-                Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
 
 }
