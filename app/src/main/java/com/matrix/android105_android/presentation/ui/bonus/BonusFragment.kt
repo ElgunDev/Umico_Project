@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.Shop
+package com.matrix.android105_android.presentation.ui.bonus
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment
 import com.matrix.android105_android.R
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class ShopFragment : Fragment() {
+class BonusFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +23,7 @@ class ShopFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop, container, false)
+        return inflater.inflate(R.layout.fragment_bonus, container, false)
     }
 
 

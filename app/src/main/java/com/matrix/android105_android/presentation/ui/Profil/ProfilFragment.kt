@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.Profil
+package com.matrix.android105_android.presentation.ui.Profil
 
 import android.os.Bundle
 import android.view.LayoutInflater

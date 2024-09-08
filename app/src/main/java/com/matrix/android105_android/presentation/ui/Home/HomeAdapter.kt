@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.Home
+package com.matrix.android105_android.presentation.ui.Home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

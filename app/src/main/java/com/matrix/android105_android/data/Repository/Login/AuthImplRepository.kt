@@ -44,7 +44,7 @@ class AuthImplRepository @Inject constructor(
         val userMap = mapOf(
             "uid" to user.uid,
             "phoneNumber" to user.phoneNumber
-        )+additionalData
+        )
         try {
             firestore.collection("users").document(user.uid).set(userMap).await()
         }

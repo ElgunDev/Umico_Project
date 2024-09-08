@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.matrix.android105_android.presentation.Home.HomeFragment"
+        android:name="com.matrix.android105_android.presentation.ui.Home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.matrix.android105_android.presentation.Shop.ShopFragment"
+        android:name="com.matrix.android105_android.presentation.ui.Shop.ShopFragment"
         android:label="fragment_shop"
         tools:layout="@layout/fragment_shop" />
     <fragment
         android:id="@+id/bonusFragment"
-        android:name="com.matrix.android105_android.presentation.bonus.BonusFragment"
+        android:name="com.matrix.android105_android.presentation.ui.bonus.BonusFragment"
         android:label="fragment_bonus"
         tools:layout="@layout/fragment_bonus" />
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.matrix.android105_android.presentation.Services.ServicesFragment"
+        android:name="com.matrix.android105_android.presentation.ui.Services.ServicesFragment"
         android:label="fragment_services"
         tools:layout="@layout/fragment_services" />
     <fragment
         android:id="@+id/profilFragment"
-        android:name="com.matrix.android105_android.presentation.Profil.ProfilFragment"
+        android:name="com.matrix.android105_android.presentation.ui.Profil.ProfilFragment"
         android:label="fragment_profil"
         tools:layout="@layout/fragment_profil" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.matrix.android105_android.presentation.main.MainFragment"
+        android:name="com.matrix.android105_android.presentation.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.matrix.android105_android.presentation.splash.SplashFragment"
+        android:name="com.matrix.android105_android.presentation.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
 
@@ -47,17 +47,16 @@
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.matrix.android105_android.presentation.Login.LogInFragment"
+        android:name="com.matrix.android105_android.presentation.ui.Login.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
-
         <action
             android:id="@+id/action_logInFragment_to_verificationCodeFragment"
             app:destination="@id/verificationCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/verificationCodeFragment"
-        android:name="com.matrix.android105_android.presentation.verificationCode.VerificationCodeFragment"
+        android:name="com.matrix.android105_android.presentation.ui.verificationCode.VerificationCodeFragment"
         android:label="fragment_verification_code"
         tools:layout="@layout/fragment_verification_code" >
         <argument

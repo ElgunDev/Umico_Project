@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.main
+package com.matrix.android105_android.presentation.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
