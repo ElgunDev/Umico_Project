@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.Home
+package com.matrix.android105_android.presentation.ui.Home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
-    lateinit var adapter:HomeAdapter
+    lateinit var adapter: HomeAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

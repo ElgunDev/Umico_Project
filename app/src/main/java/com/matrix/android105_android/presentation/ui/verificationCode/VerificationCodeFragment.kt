@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.verificationCode
+package com.matrix.android105_android.presentation.ui.verificationCode
 
 import android.os.Bundle
 import android.text.Editable
@@ -15,13 +15,14 @@ import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.PhoneAuthProvider
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentVerificationCodeBinding
-import com.matrix.android105_android.presentation.Login.LoginViewModel
+import com.matrix.android105_android.presentation.ui.Login.LoginViewModel
+import com.matrix.android105_android.presentation.utils.NetworkResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class VerificationCodeFragment : Fragment() {
-     lateinit var binding: FragmentVerificationCodeBinding
-     private val LoginViewModel:LoginViewModel by viewModels()
+    lateinit var binding: FragmentVerificationCodeBinding
+    private val LoginViewModel: LoginViewModel by viewModels()
     private val args: VerificationCodeFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class VerificationCodeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding  = FragmentVerificationCodeBinding.inflate(layoutInflater)
+        binding = FragmentVerificationCodeBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -46,26 +47,42 @@ class VerificationCodeFragment : Fragment() {
 
 
     private fun setupEditTexts() {
-        val editTexts = listOf(binding.edtCode1, binding.edtCode2, binding.edtCode3, binding.edtCode4,binding.edtCode5,binding.edtCode6)
+        val editTexts = listOf(
+            binding.edtCode1,
+            binding.edtCode2,
+            binding.edtCode3,
+            binding.edtCode4,
+            binding.edtCode5,
+            binding.edtCode6
+        )
 
         for (i in editTexts.indices) {
             editTexts[i].addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     if (s?.length == 1) {
-                        editTexts[i].background = ContextCompat.getDrawable(requireContext(),
+                        editTexts[i].background = ContextCompat.getDrawable(
+                            requireContext(),
                             R.drawable.bg_edit_text_filled
                         )
                         if (i < editTexts.size - 1) {
                             editTexts[i + 1].requestFocus()
                         }
                     } else {
-                        editTexts[i].background = ContextCompat.getDrawable(requireContext(),
+                        editTexts[i].background = ContextCompat.getDrawable(
+                            requireContext(),
                             R.drawable.bg_edit_text_code
                         )
                     }
                 }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
@@ -78,14 +95,16 @@ class VerificationCodeFragment : Fragment() {
         }
     }
 
-    fun click(){
-        binding.btnVerifityCode.setOnClickListener{
+    private fun click() {
+        binding.btnVerifityCode.setOnClickListener {
             val verificationId = args.verificationId
-            val code =getCodeFromEditTexts()
-            val creditial = PhoneAuthProvider.getCredential(verificationId , code)
+            val code = getCodeFromEditTexts()
+            val creditial = PhoneAuthProvider.getCredential(verificationId, code)
+            binding.progressBar2.visibility = View.VISIBLE
             LoginViewModel.verifyCodeAndLogin(creditial)
         }
     }
+
     private fun getCodeFromEditTexts(): String {
         val code1 = binding.edtCode1.text.toString()
         val code2 = binding.edtCode2.text.toString()
@@ -95,15 +114,29 @@ class VerificationCodeFragment : Fragment() {
         val code6 = binding.edtCode6.text.toString()
         return code1 + code2 + code3 + code4 + code5 + code6
     }
-    fun observe(){
-        LoginViewModel.verificationState.observe(viewLifecycleOwner){success->
-            if (success){
-                findNavController().navigate(R.id.action_verificationCodeFragment_to_mainFragment)
-            }
-            else {
-                Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
+    private fun observe() {
+        LoginViewModel.verificationState.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is NetworkResource.Success -> {
+                    if (resource.data) {
+                        findNavController().navigate(R.id.action_verificationCodeFragment_to_mainFragment)
+                    } else {
+                        Toast.makeText(context, "Verification failed", Toast.LENGTH_SHORT).show()
+                    }
+                    binding.progressBar2.visibility = View.INVISIBLE
+                }
+                is NetworkResource.Error ->{
+                    Toast.makeText(context, "Login Failed: ${resource.message}", Toast.LENGTH_SHORT).show()
+                    binding.progressBar2.visibility = View.INVISIBLE
+                }
+                is NetworkResource.Loading->{
+                    binding.progressBar2.visibility = View.VISIBLE
+                }
+            }
+
+        }
+
+
+    }
 }

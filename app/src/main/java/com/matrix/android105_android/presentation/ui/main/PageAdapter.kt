@@ -1,14 +1,14 @@
-package com.matrix.android105_android.presentation.main
+package com.matrix.android105_android.presentation.ui.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.matrix.android105_android.presentation.Home.HomeFragment
-import com.matrix.android105_android.presentation.Profil.ProfilFragment
-import com.matrix.android105_android.presentation.Services.ServicesFragment
-import com.matrix.android105_android.presentation.Shop.ShopFragment
-import com.matrix.android105_android.presentation.bonus.BonusFragment
+import com.matrix.android105_android.presentation.ui.Home.HomeFragment
+import com.matrix.android105_android.presentation.ui.Profil.ProfilFragment
+import com.matrix.android105_android.presentation.ui.Services.ServicesFragment
+import com.matrix.android105_android.presentation.ui.Shop.ShopFragment
+import com.matrix.android105_android.presentation.ui.bonus.BonusFragment
 
 
 class PageAdapter(fragmentManager: FragmentManager , lifecycle: Lifecycle ):FragmentStateAdapter(fragmentManager, lifecycle) {

@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.splash
+package com.matrix.android105_android.presentation.ui.splash
 
 import android.os.Bundle
 import android.os.Handler

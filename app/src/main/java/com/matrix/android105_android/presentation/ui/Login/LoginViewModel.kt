@@ -1,4 +1,4 @@
-package com.matrix.android105_android.presentation.Login
+package com.matrix.android105_android.presentation.ui.Login
 
 import android.app.Activity
 import android.util.Log
@@ -14,6 +14,7 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import com.matrix.android105_android.domain.UseCase.ILoginUseCase
+import com.matrix.android105_android.presentation.utils.NetworkResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 import kotlinx.coroutines.launch
@@ -33,21 +34,25 @@ class LoginViewModel @Inject constructor(
     val selectedLocale:MutableLiveData<Locale>
         get() = _selectedLocale
 
-    private val _verificationState = MutableLiveData<Boolean>()
-    val verificationState:MutableLiveData<Boolean>
+    private val _verificationState = MutableLiveData<NetworkResource<Boolean>>()
+    val verificationState:MutableLiveData<NetworkResource<Boolean>>
         get()=_verificationState
 
-    private val _verificationId = MutableLiveData<String>()
-    val verificationId:MutableLiveData<String>
+    private val _verificationId = MutableLiveData<NetworkResource<String>>()
+    val verificationId:MutableLiveData<NetworkResource<String>>
         get()=_verificationId
 
-    private val _verificationError = MutableLiveData<String>()
-    val verificationError :MutableLiveData<String>
-        get() = _verificationError
 
      fun updateLocaleCountry(countryCode: String){
         val locale = getLocaleForCountry(countryCode)
         _selectedLocale.value= locale
+    }
+    private fun getLocaleForCountry(countryCode:String):Locale{
+        return when(countryCode){
+            "US" -> Locale("en" , "US")
+            "AZ" -> Locale("az" , "AZ")
+            else -> Locale.getDefault()
+        }
     }
 
      private val callback = object :PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
@@ -56,20 +61,12 @@ class LoginViewModel @Inject constructor(
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            _verificationState.postValue(false)
-            _verificationError.postValue(e.message)
+            _verificationState.postValue(NetworkResource.Error(e.message ?: "Verification failed"))
+           _verificationId.postValue(NetworkResource.Error(e.message?:"Verification failed"))
 
         }
-        override fun onCodeSent(verificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
-            _verificationId.value= verificationId
-            _verificationError.postValue("Code sent")
-        }
-    }
-    private fun getLocaleForCountry(countryCode:String):Locale{
-        return when(countryCode){
-            "US" -> Locale("en" , "US")
-            "AZ" -> Locale("az" , "AZ")
-            else -> Locale.getDefault()
+        override fun onCodeSent(veritificationId: String, token: PhoneAuthProvider.ForceResendingToken) {
+            _verificationId.value= NetworkResource.Success(veritificationId)
         }
     }
 
@@ -82,7 +79,7 @@ class LoginViewModel @Inject constructor(
     fun verifyCodeAndLogin(credential: PhoneAuthCredential){
         viewModelScope.launch {
             val success = loginUseCase.verificationCodeAndLogin(credential)
-            _verificationState.value =success
+            _verificationState.value =NetworkResource.Success(success)
         }
     }
 
