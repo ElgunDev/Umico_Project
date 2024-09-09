@@ -2,8 +2,8 @@ package com.matrix.android105_android.presentation.di.module
 
 import com.matrix.android105_android.data.Repository.Login.AuthImplRepository
 import com.matrix.android105_android.domain.Repository.Login.IAuthRepository
-import com.matrix.android105_android.domain.UseCase.ILoginUseCase
-import com.matrix.android105_android.domain.UseCase.LoginUseCaseImpl
+import com.matrix.android105_android.domain.UseCase.Login.ILoginUseCase
+import com.matrix.android105_android.domain.UseCase.Login.LoginUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

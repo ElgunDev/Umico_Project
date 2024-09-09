@@ -1,4 +1,4 @@
-package com.matrix.android105_android.domain.UseCase
+package com.matrix.android105_android.domain.UseCase.Login
 
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider

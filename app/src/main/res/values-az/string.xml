@@ -7,7 +7,7 @@
     <string name="Bonus">Bonus</string>
     <string name="Services">Xidmətlər</string>
     <string name="Profil">Profil</string>
-    <string name="name">Salam, Elgün</string>
+    <string name="Hello">Salam, </string>
     <string name="search">Umico Market-də məhsul axtarışı</string>
     <string name="enterPhoneNumber">Əlaqə nömrənizi qeyd edin</string>
     <string name="PhoneNumber">Telefon nömrəsi</string>

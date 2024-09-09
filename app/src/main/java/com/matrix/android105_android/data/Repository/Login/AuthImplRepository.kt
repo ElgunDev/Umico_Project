@@ -43,7 +43,13 @@ class AuthImplRepository @Inject constructor(
     override suspend fun saveUserToFirestore(user: FirebaseUser, additionalData: Map<String, Any>) {
         val userMap = mapOf(
             "uid" to user.uid,
-            "phoneNumber" to user.phoneNumber
+            "phoneNumber" to user.phoneNumber,
+            "email" to null,
+            "name" to null,
+            "username" to null,
+            "brithday" to null,
+            "gender" to null,
+            "FIN" to null
         )
         try {
             firestore.collection("users").document(user.uid).set(userMap).await()
