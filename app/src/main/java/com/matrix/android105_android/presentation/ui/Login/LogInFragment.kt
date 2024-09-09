@@ -94,7 +94,7 @@ class LogInFragment : Fragment() {
     }
 
 
-    fun click(){
+    private fun click(){
         binding.btnLogin.setOnClickListener(){
             val phoneNumber ="+994"+ binding.edtPhoneNumber.text.toString()
             binding.progressBar.visibility = View.VISIBLE
@@ -103,7 +103,7 @@ class LogInFragment : Fragment() {
         }
     }
 
-    fun setUpClickButtonColor(){
+    private fun setUpClickButtonColor(){
         binding.edtPhoneNumber.addTextChangedListener(object  : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }

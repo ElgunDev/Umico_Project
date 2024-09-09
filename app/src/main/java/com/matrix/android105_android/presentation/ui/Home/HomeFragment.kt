@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.matrix.android105_android.R
@@ -14,8 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentHomeBinding
-    lateinit var adapter: HomeAdapter
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var adapter: AdAdapter
+    private val homeViewModel: HomeViewModel by viewModels()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,24 +36,25 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter()
+        homeViewModel.fetchUserName()
+        homeViewModel.fetchAdImages()
+        observeUserName()
+        setAdAdapter()
     }
 
-    fun setAdapter(){
-        val advertisements = listOf(
-            Advertisements(R.drawable.image1),
-            Advertisements(R.drawable.image2),
-            Advertisements(R.drawable.image3),
-            Advertisements(R.drawable.image4),
-            Advertisements(R.drawable.image5),
-            Advertisements(R.drawable.image6)
-        )
-
-        adapter = HomeAdapter()
+    private fun setAdAdapter(){
+        adapter = AdAdapter()
         binding.rcyAdvertising.adapter = adapter
         binding.rcyAdvertising.layoutManager  = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-        adapter.submitList(advertisements)
+        homeViewModel.adImages.observe(viewLifecycleOwner){adImages->
+            adapter.submitList(adImages)
+        }
     }
 
-
+    private fun observeUserName(){
+        homeViewModel.username.observe(viewLifecycleOwner){name->
+            binding.txtName.text = name
+            binding.btnProfilText.text = name.first().toString().uppercase()
+        }
+    }
 }

@@ -21,8 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class VerificationCodeFragment : Fragment() {
-    lateinit var binding: FragmentVerificationCodeBinding
-    private val LoginViewModel: LoginViewModel by viewModels()
+    private lateinit var binding: FragmentVerificationCodeBinding
+    private val loginViewModel: LoginViewModel by viewModels()
     private val args: VerificationCodeFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,7 +101,7 @@ class VerificationCodeFragment : Fragment() {
             val code = getCodeFromEditTexts()
             val creditial = PhoneAuthProvider.getCredential(verificationId, code)
             binding.progressBar2.visibility = View.VISIBLE
-            LoginViewModel.verifyCodeAndLogin(creditial)
+            loginViewModel.verifyCodeAndLogin(creditial)
         }
     }
 
@@ -116,7 +116,7 @@ class VerificationCodeFragment : Fragment() {
     }
 
     private fun observe() {
-        LoginViewModel.verificationState.observe(viewLifecycleOwner) { resource ->
+        loginViewModel.verificationState.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is NetworkResource.Success -> {
                     if (resource.data) {

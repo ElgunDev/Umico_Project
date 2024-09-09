@@ -1,28 +1,19 @@
 package com.matrix.android105_android.presentation.ui.Login
 
-import android.app.Activity
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
-import com.matrix.android105_android.domain.UseCase.ILoginUseCase
+import com.matrix.android105_android.domain.UseCase.Login.ILoginUseCase
 import com.matrix.android105_android.presentation.utils.NetworkResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 import kotlinx.coroutines.launch
 import java.util.Locale
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
-import kotlin.math.log
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
