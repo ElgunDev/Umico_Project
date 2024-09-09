@@ -56,7 +56,7 @@ class LogInFragment : Fragment() {
         click()
     }
 
-    fun observeVerificationId(){
+    private fun observeVerificationId(){
         loginViewModel.verificationId.observe(viewLifecycleOwner){resource->
             when(resource) {
                 is NetworkResource.Success ->{
