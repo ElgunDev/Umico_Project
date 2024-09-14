@@ -42,7 +42,6 @@ class LogInFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpClickButtonColor()
-
         observeVerificationId()
         click()
         loginViewModel.selectedLocale.observe(viewLifecycleOwner){
@@ -66,14 +65,14 @@ class LogInFragment : Fragment() {
                             verificationId = verificationId
                         )
                     findNavController().navigate(action)
-                    binding.progressBar.visibility =View.INVISIBLE
+                    showProgressBar(false)
                 }
                 is NetworkResource.Loading ->{
-                    binding.progressBar.visibility = View.VISIBLE
+                    showProgressBar(true)
                 }
                 is NetworkResource.Error ->{
                     Toast.makeText(requireContext(),resource.message , Toast.LENGTH_SHORT).show()
-                    binding.progressBar.visibility = View.INVISIBLE
+                    showProgressBar(false)
                 }
             }
         }
@@ -97,11 +96,24 @@ class LogInFragment : Fragment() {
     private fun click(){
         binding.btnLogin.setOnClickListener(){
             val phoneNumber ="+994"+ binding.edtPhoneNumber.text.toString()
-            binding.progressBar.visibility = View.VISIBLE
+            showProgressBar(true)
             loginViewModel.sendVerificationCode(phoneNumber)
 
         }
     }
+    private fun showProgressBar(show:Boolean){
+        if (show){
+            binding.progressBar.visibility = View.VISIBLE
+            binding.btnLogin.text = ""
+        }
+        else{
+            binding.progressBar.visibility = View.INVISIBLE
+            binding.btnLogin.text = getString(R.string.LogIn)
+
+        }
+
+    }
+
 
     private fun setUpClickButtonColor(){
         binding.edtPhoneNumber.addTextChangedListener(object  : TextWatcher{
@@ -128,10 +140,4 @@ class LogInFragment : Fragment() {
 
         })
     }
-
-
-
-
-
-
 }

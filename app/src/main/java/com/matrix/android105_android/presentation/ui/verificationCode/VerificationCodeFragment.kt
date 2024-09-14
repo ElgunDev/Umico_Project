@@ -40,8 +40,9 @@ class VerificationCodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        click()
+
         observe()
+        click()
         setupEditTexts()
     }
 
@@ -100,8 +101,19 @@ class VerificationCodeFragment : Fragment() {
             val verificationId = args.verificationId
             val code = getCodeFromEditTexts()
             val creditial = PhoneAuthProvider.getCredential(verificationId, code)
-            binding.progressBar2.visibility = View.VISIBLE
+           showProgressBar(true)
             loginViewModel.verifyCodeAndLogin(creditial)
+        }
+    }
+
+    private fun showProgressBar(show:Boolean){
+        if (show){
+            binding.progressBar2.visibility = View.VISIBLE
+            binding.btnVerifityCode.text = ""
+        }
+        else{
+            binding.progressBar2.visibility =View.INVISIBLE
+            binding.btnVerifityCode.text = getString(R.string.Verifity)
         }
     }
 
@@ -124,14 +136,14 @@ class VerificationCodeFragment : Fragment() {
                     } else {
                         Toast.makeText(context, "Verification failed", Toast.LENGTH_SHORT).show()
                     }
-                    binding.progressBar2.visibility = View.INVISIBLE
+                   showProgressBar(false)
                 }
                 is NetworkResource.Error ->{
                     Toast.makeText(context, "Login Failed: ${resource.message}", Toast.LENGTH_SHORT).show()
-                    binding.progressBar2.visibility = View.INVISIBLE
+                    showProgressBar(false)
                 }
                 is NetworkResource.Loading->{
-                    binding.progressBar2.visibility = View.VISIBLE
+                   showProgressBar(true)
                 }
             }
 
