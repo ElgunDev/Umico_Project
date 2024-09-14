@@ -16,5 +16,6 @@
     <string name="WriteVeritificationCode">SMS vasitəsilə gələn kodu qeyd edin</string>
     <string name="EnterCode">SMS vasitəsilə telefona nömrəsinə göndərilən kodu daxil edin</string>
     <string name="Verifity">Doğrulayın</string>
+    <string name="MyBonus">Mənim bonuslarım:</string>
 
 </resources>

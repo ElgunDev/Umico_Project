@@ -16,7 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: AdAdapter
+    private lateinit var adAdapter: AdAdapter
+    private lateinit var shopAdapter:ShopsAdapter
     private val homeViewModel: HomeViewModel by viewModels()
 
 
@@ -38,18 +39,29 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.fetchUserName()
         homeViewModel.fetchAdImages()
+        homeViewModel.fetchShops()
         observeUserName()
         setAdAdapter()
+        setShopAdapter()
     }
 
     private fun setAdAdapter(){
-        adapter = AdAdapter()
-        binding.rcyAdvertising.adapter = adapter
+        adAdapter = AdAdapter()
+        binding.rcyAdvertising.adapter = adAdapter
         binding.rcyAdvertising.layoutManager  = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         homeViewModel.adImages.observe(viewLifecycleOwner){adImages->
-            adapter.submitList(adImages)
+            adAdapter.submitList(adImages)
         }
     }
+    private fun setShopAdapter(){
+        shopAdapter = ShopsAdapter()
+        binding.rcyMarkets.adapter = shopAdapter
+        binding.rcyMarkets.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false)
+        homeViewModel.shops.observe(viewLifecycleOwner){
+            shopAdapter.submitList(it)
+        }
+    }
+
 
     private fun observeUserName(){
         homeViewModel.username.observe(viewLifecycleOwner){name->

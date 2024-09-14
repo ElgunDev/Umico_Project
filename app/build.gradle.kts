@@ -90,6 +90,7 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     implementation ("com.google.firebase:firebase-auth-ktx")
     implementation ("com.google.firebase:firebase-firestore-ktx")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
 
 

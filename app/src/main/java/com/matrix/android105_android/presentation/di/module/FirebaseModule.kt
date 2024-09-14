@@ -4,7 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.matrix.android105_android.data.Repository.Profil.UserImplRepository
 import com.matrix.android105_android.data.Repository.Home.advertisement.AdImplRepository
+import com.matrix.android105_android.data.Repository.Home.Shops.ShopsImplRepository
 import com.matrix.android105_android.domain.Repository.Home.advertisement.IAdRepository
+import com.matrix.android105_android.domain.Repository.Home.Shops.IShopsRepository
 import com.matrix.android105_android.domain.Repository.profil.IUserRepository
 import dagger.Module
 import dagger.Provides
@@ -37,5 +39,11 @@ object FirebaseModule {
     @Singleton
     fun provideAdRepository(firestore: FirebaseFirestore): IAdRepository {
         return AdImplRepository(firestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideShopRepository(firestore: FirebaseFirestore): IShopsRepository {
+        return ShopsImplRepository(firestore)
     }
 }

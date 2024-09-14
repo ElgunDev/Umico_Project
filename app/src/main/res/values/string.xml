@@ -16,4 +16,5 @@
     <string name="WriteVeritificationCode">Enter the code received via SMS</string>
     <string name="EnterCode">Enter the code sent to your phone number via SMS</string>
     <string name="Verifity">Verifity</string>
+    <string name="MyBonus">My bonuses:</string>
 </resources>

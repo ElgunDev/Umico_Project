@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.matrix.android105_android.data.Repository.Home.Shops.Shop
+import com.matrix.android105_android.domain.UseCase.Home.Shops.ShopsUseCase
 import com.matrix.android105_android.domain.UseCase.Profil.GetUserNameUseCase
 import com.matrix.android105_android.domain.UseCase.Home.advertisement.AdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +16,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getUserNameUseCase:GetUserNameUseCase,
     private val firebaseAuth: FirebaseAuth,
-    private val adUseCase: AdUseCase
+    private val adUseCase: AdUseCase,
+    private val shopUseCase:ShopsUseCase
 ):ViewModel() {
     private val _userName = MutableLiveData<String>()
     val username:MutableLiveData<String>
@@ -23,6 +26,10 @@ class HomeViewModel @Inject constructor(
     private val _adImages = MutableLiveData<List<String>>()
     val adImages:MutableLiveData<List<String>>
         get() = _adImages
+
+    private val _shops= MutableLiveData<List<Shop>>()
+    val shops:MutableLiveData<List<Shop>>
+        get() = _shops
 
     fun fetchUserName(){
         val uid = firebaseAuth.currentUser?.uid
@@ -43,6 +50,18 @@ class HomeViewModel @Inject constructor(
             try {
                 val images = adUseCase.getAdvertisementImages()
                 _adImages.value = images
+            }
+            catch (e:Exception){
+
+            }
+        }
+    }
+
+    fun fetchShops(){
+        viewModelScope.launch {
+            try {
+                val shopList = shopUseCase.getShops()
+                _shops.value = shopList
             }
             catch (e:Exception){
 
