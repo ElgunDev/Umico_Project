@@ -18,6 +18,9 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adAdapter: AdAdapter
     private lateinit var shopAdapter:ShopsAdapter
+    private lateinit var productAdapter:ProductAdapter
+    private lateinit var recommendationAdapter: RecommendationAdapter
+
     private val homeViewModel: HomeViewModel by viewModels()
 
 
@@ -40,9 +43,16 @@ class HomeFragment : Fragment() {
         homeViewModel.fetchUserName()
         homeViewModel.fetchAdImages()
         homeViewModel.fetchShops()
+        homeViewModel.startCountDown()
+        homeViewModel.fetchProducts()
+        homeViewModel.fetchRecommendationProducts()
         observeUserName()
         setAdAdapter()
         setShopAdapter()
+        observeTimer()
+        setProductAdapter()
+        setRecommendationAdapter()
+
     }
 
     private fun setAdAdapter(){
@@ -61,12 +71,35 @@ class HomeFragment : Fragment() {
             shopAdapter.submitList(it)
         }
     }
+    private fun setProductAdapter(){
+      productAdapter = ProductAdapter()
+        binding.rcyDiscountedproducts.adapter = productAdapter
+        binding.rcyDiscountedproducts.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
+        homeViewModel.product.observe(viewLifecycleOwner){productList->
+            productAdapter.submitList(productList)
+        }
+    }
+
+    private fun setRecommendationAdapter(){
+        recommendationAdapter = RecommendationAdapter()
+        binding.rcyRecomendations.adapter = recommendationAdapter
+        binding.rcyRecomendations.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
+       homeViewModel.recommendationProducts.observe(viewLifecycleOwner){recommendationList->
+           recommendationAdapter.submitList(recommendationList)
+       }
+    }
 
 
     private fun observeUserName(){
         homeViewModel.username.observe(viewLifecycleOwner){name->
             binding.txtName.text = name
             binding.btnProfilText.text = name.first().toString().uppercase()
+        }
+    }
+
+    private fun observeTimer(){
+        homeViewModel.timeRemaining.observe(viewLifecycleOwner){time->
+            binding.timer.text = time
         }
     }
 }
