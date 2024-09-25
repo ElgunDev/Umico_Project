@@ -5,8 +5,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.matrix.android105_android.data.Repository.Profil.UserImplRepository
 import com.matrix.android105_android.data.Repository.Home.advertisement.AdImplRepository
 import com.matrix.android105_android.data.Repository.Home.Shops.ShopsImplRepository
+import com.matrix.android105_android.data.Repository.Products.ProductImplRepository
 import com.matrix.android105_android.domain.Repository.Home.advertisement.IAdRepository
 import com.matrix.android105_android.domain.Repository.Home.Shops.IShopsRepository
+import com.matrix.android105_android.domain.Repository.Home.product.IProductRepository
 import com.matrix.android105_android.domain.Repository.profil.IUserRepository
 import dagger.Module
 import dagger.Provides
@@ -45,5 +47,11 @@ object FirebaseModule {
     @Singleton
     fun provideShopRepository(firestore: FirebaseFirestore): IShopsRepository {
         return ShopsImplRepository(firestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(fireStore: FirebaseFirestore):IProductRepository{
+        return ProductImplRepository(fireStore)
     }
 }

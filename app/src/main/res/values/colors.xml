@@ -6,4 +6,9 @@
     <color name="lightPurple">#E9E3FF</color>
     <color name="Purple">#A55FD0</color>
     <color name="lightGray">#E3E3E3</color>
+    <color name="pink">#FF2A69</color>
+    <color name="BluePurple">#7A61DA</color>
+    <color name="LightBronze">#E0B183</color>
+    <color name="DarkBronze">#A26528</color>
+    <color name="Yellow">#FDD640</color>
 </resources>

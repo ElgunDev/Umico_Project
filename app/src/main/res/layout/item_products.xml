@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:layout_marginLeft="14dp"
+    app:cardCornerRadius="10dp"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/advertisage_default_image"
+            android:scaleType="fitXY"
+            android:layout_marginTop="20dp"
+            />
+
+        <ImageButton
+            android:id="@+id/imgLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            android:src="@drawable/favorite_fill0_wght400_grad0_opsz24"
+            android:background="@color/cardview_shadow_end_color"
+            />
+
+        <TextView
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgProduct"
+            android:text="@string/Discounted"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:paddingTop="4dp"
+            android:background="@drawable/bg_discount"
+            android:textSize="13sp"
+            />
+        <TextView
+            android:id="@+id/discountRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/view"
+            app:layout_constraintBottom_toTopOf="@id/view"
+            android:textStyle="bold"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_discount_rate"
+            android:textColor="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/discountedPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view"
+
+            android:layout_marginTop="10dp"
+            android:textColor="@color/pink"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
+
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toRightOf="@+id/discountedPrice"
+            app:layout_constraintTop_toTopOf="@id/discountedPrice"
+            android:textSize="14sp"
+            />
+
+
+        <TextView
+            android:id="@+id/txtAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/discountedPrice"
+            android:layout_marginTop="10dp"
+            android:text="@string/Action"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/timer"
+            app:layout_constraintLeft_toRightOf="@id/txtAction"
+            app:layout_constraintTop_toTopOf="@id/txtAction"
+            app:layout_constraintBottom_toBottomOf="@id/txtAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="00:00:00"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/pink"
+            />
+
+        <TextView
+            android:id="@+id/txtCreditMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/Yellow"
+            android:padding="7dp"
+
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtAction" />
+
+        <TextView
+            android:id="@+id/txtNameProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtCreditMonth"
+            android:layout_marginTop="13dp"
+            android:textSize="15sp"
+            />
+        
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtNameProduct"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="5"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/Yellow"
+            android:layout_marginEnd="70dp"
+            />
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddBasket"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtNameProduct"
+            android:layout_marginTop="70dp"
+            android:text="@string/Basket"
+            android:textSize="13sp"
+            android:textColor="@color/BluePurple"
+            android:background="@color/cardview_shadow_end_color"
+            android:drawableLeft="@drawable/shopping_cart_24dp_e8eaed_fill0_wght400_grad0_opsz24_purple"
+            android:textAlignment="textStart"
+            android:paddingLeft="10dp"
+
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>

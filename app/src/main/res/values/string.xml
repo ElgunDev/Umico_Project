@@ -17,4 +17,11 @@
     <string name="EnterCode">Enter the code sent to your phone number via SMS</string>
     <string name="Verifity">Verifity</string>
     <string name="MyBonus">My bonuses:</string>
+    <string name="DiscountOfTheDay">Discount of the day</string>
+    <string name="More">More</string>
+    <string name="Discounted">Up to 10% with premium</string>
+    <string name="Action">Action:</string>
+    <string name="Basket">BASKET</string>
+    <string name="recommendations">Special recommendations for you</string>
+    <string name="All">ALL</string>
 </resources>

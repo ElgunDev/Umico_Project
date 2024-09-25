@@ -17,5 +17,12 @@
     <string name="EnterCode">SMS vasitəsilə telefona nömrəsinə göndərilən kodu daxil edin</string>
     <string name="Verifity">Doğrulayın</string>
     <string name="MyBonus">Mənim bonuslarım:</string>
+    <string name="DiscountOfTheDay">Günün endirimi</string>
+    <string name="More">Daha çox</string>
+    <string name="Discounted">Premium ilə 10%-ə qədər</string>
+    <string name="Action">Aksiya:</string>
+    <string name="Basket">SƏBƏTƏ</string>
+    <string name="recommendations">Sizə özəl tövsiyyələr</string>
+    <string name="All">HAMISI</string>
 
 </resources>
