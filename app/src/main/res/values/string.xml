@@ -24,4 +24,7 @@
     <string name="Basket">BASKET</string>
     <string name="recommendations">Special recommendations for you</string>
     <string name="All">ALL</string>
+    <string name="Dowry">Let the houses be filled with dowry!</string>
+    <string name="History">Seen before</string>
+    <string name="Popular">Popular categories</string>
 </resources>

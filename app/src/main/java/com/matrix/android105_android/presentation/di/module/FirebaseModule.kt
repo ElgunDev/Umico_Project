@@ -5,9 +5,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.matrix.android105_android.data.Repository.Profil.UserImplRepository
 import com.matrix.android105_android.data.Repository.Home.advertisement.AdImplRepository
 import com.matrix.android105_android.data.Repository.Home.Shops.ShopsImplRepository
-import com.matrix.android105_android.data.Repository.Products.ProductImplRepository
+import com.matrix.android105_android.data.Repository.Home.dowry.DowryImplRepository
+import com.matrix.android105_android.data.Repository.Home.Products.ProductImplRepository
+import com.matrix.android105_android.data.Repository.Home.popular.PopularImplRepository
 import com.matrix.android105_android.domain.Repository.Home.advertisement.IAdRepository
 import com.matrix.android105_android.domain.Repository.Home.Shops.IShopsRepository
+import com.matrix.android105_android.domain.Repository.Home.dowry.IDowryRepository
+import com.matrix.android105_android.domain.Repository.Home.popular.IPopularRepository
 import com.matrix.android105_android.domain.Repository.Home.product.IProductRepository
 import com.matrix.android105_android.domain.Repository.profil.IUserRepository
 import dagger.Module
@@ -53,5 +57,16 @@ object FirebaseModule {
     @Singleton
     fun provideProductRepository(fireStore: FirebaseFirestore):IProductRepository{
         return ProductImplRepository(fireStore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDowryRepository(fireStore: FirebaseFirestore):IDowryRepository{
+        return DowryImplRepository(fireStore)
+    }
+    @Provides
+    @Singleton
+    fun providePopularRepository(fireStore: FirebaseFirestore):IPopularRepository{
+        return PopularImplRepository(fireStore)
     }
 }
