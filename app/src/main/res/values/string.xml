@@ -27,4 +27,6 @@
     <string name="Dowry">Let the houses be filled with dowry!</string>
     <string name="History">Seen before</string>
     <string name="Popular">Popular categories</string>
+    <string name="AllCategory">View all categories</string>
+    <string name="Actions">Promotions and offers from partners</string>
 </resources>

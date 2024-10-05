@@ -8,10 +8,11 @@ import javax.inject.Inject
 class DowryImplRepository @Inject constructor(
     private val fireStore: FirebaseFirestore
 ):IDowryRepository {
-    override suspend fun getDowry(): List<String> {
+    override suspend fun getDowry(): List<Dowry> {
         val result = fireStore.collection("dowry").get().await()
         return result.documents.map {
-            it.getString("imageUrl")?:""
+            val image = it.getString("imageUrl")?:""
+            Dowry(image)
         }
     }
 }
