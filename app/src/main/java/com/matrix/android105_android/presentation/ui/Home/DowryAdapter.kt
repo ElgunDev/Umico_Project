@@ -8,21 +8,26 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.matrix.android105_android.R
+import com.matrix.android105_android.data.Repository.Home.dowry.Dowry
 import com.matrix.android105_android.databinding.ItemDowryBinding
 
 class DowryAdapter:RecyclerView.Adapter<DowryAdapter.DowryViewHolder>() {
 
-    private val diffCallBack = object :DiffUtil.ItemCallback<String>(){
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+
+
+    private val diffCallBack = object :DiffUtil.ItemCallback<Dowry>(){
+        override fun areItemsTheSame(oldItem: Dowry, newItem: Dowry): Boolean {
             return oldItem==newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem==newItem
+        override fun areContentsTheSame(oldItem: Dowry, newItem: Dowry): Boolean {
+            return  oldItem==newItem
         }
+
 
     }
     private val diffUtil = AsyncListDiffer(this,diffCallBack)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DowryViewHolder {
         val binding = ItemDowryBinding.inflate(LayoutInflater.from(parent.context) , parent ,false)
@@ -34,7 +39,8 @@ class DowryAdapter:RecyclerView.Adapter<DowryAdapter.DowryViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: DowryViewHolder, position: Int) {
-        return holder.bind(diffUtil.currentList[position])
+        val image  = diffUtil.currentList[position]
+        return holder.bind(image.image)
     }
 
     inner class DowryViewHolder(private val binding:ItemDowryBinding):RecyclerView.ViewHolder(binding.root){
@@ -45,7 +51,7 @@ class DowryAdapter:RecyclerView.Adapter<DowryAdapter.DowryViewHolder>() {
         }
 
     }
-    fun submitList(list: List<String>){
+    fun submitList(list: List<Dowry>){
         diffUtil.submitList(list)
     }
 }

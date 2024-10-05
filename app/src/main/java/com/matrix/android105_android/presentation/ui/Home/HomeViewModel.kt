@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.matrix.android105_android.data.Repository.Home.Shops.Shop
 import com.matrix.android105_android.data.Repository.Home.advertisement.Advertisement
 import com.matrix.android105_android.data.Repository.Home.Products.Product
+import com.matrix.android105_android.data.Repository.Home.dowry.Dowry
 import com.matrix.android105_android.data.Repository.Home.popular.Popular
 import com.matrix.android105_android.domain.UseCase.Home.Shops.ShopsUseCase
 import com.matrix.android105_android.domain.UseCase.Profil.GetUserNameUseCase
@@ -54,8 +55,8 @@ class HomeViewModel @Inject constructor(
     val recommendationProducts:MutableLiveData<List<Product>>
         get()= _recommendationProducts
 
-    private val _dowryImage = MutableLiveData<List<String>>()
-    val dowryImage:MutableLiveData<List<String>>
+    private val _dowryImage = MutableLiveData<List<Dowry>>()
+    val dowryImage:MutableLiveData<List<Dowry>>
         get() = _dowryImage
 
     private val _historyProducts = MutableLiveData<List<Product>>()
@@ -66,9 +67,17 @@ class HomeViewModel @Inject constructor(
     val adSecondImages:MutableLiveData<List<Advertisement>>
         get()= _adSecondImages
 
+    private val _adThirdImages = MutableLiveData<List<Advertisement>>()
+    val adThirdImages: MutableLiveData<List<Advertisement>>
+        get() = _adThirdImages
+
     private val _popularItems  = MutableLiveData<List<Popular>>()
     val popularItems :MutableLiveData<List<Popular>>
         get() = _popularItems
+
+    private val _actionsImage = MutableLiveData<List<Advertisement>>()
+    val actionsImage :MutableLiveData<List<Advertisement>>
+        get() = _actionsImage
 
     private lateinit var countDownTimer: CountDownTimer
     private val totalTimer = (23*60*60*1000) + (59*60*1000) + (59*1000)
@@ -109,6 +118,36 @@ class HomeViewModel @Inject constructor(
                     it.row == "second"
                 }
                 _adSecondImages.value = filterImages
+            }
+            catch (e:Exception){
+
+            }
+        }
+    }
+
+    fun fetchAdThirdImages(){
+        viewModelScope.launch {
+            try {
+                val images = adUseCase.getAdvertisementImages()
+                val filterImages = images.filter {
+                    it.row == "third"
+                }
+                _adThirdImages.value = filterImages
+            }
+            catch (e:Exception){
+
+            }
+        }
+    }
+
+    fun fetchActionImages(){
+        viewModelScope.launch {
+            try {
+                val images = adUseCase.getAdvertisementImages()
+                val filterImage = images.filter {
+                    it.row == "fourth"
+                }
+                _actionsImage.value = filterImage
             }
             catch (e:Exception){
 

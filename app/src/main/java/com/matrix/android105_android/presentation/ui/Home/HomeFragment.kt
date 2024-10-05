@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -26,6 +30,8 @@ class HomeFragment : Fragment() {
     private lateinit var historyAdapter: HistoryAdapter
     private lateinit var adSecondAdapter: AdSecondAdapter
     private lateinit var popularAdapter: PopularAdapter
+    private lateinit var adThirdAdapter: AdThirdAdapter
+    private lateinit var actionAdapter: ActionAdapter
 
     private val homeViewModel: HomeViewModel by viewModels()
 
@@ -56,16 +62,20 @@ class HomeFragment : Fragment() {
         homeViewModel.fetchHistoryProducts()
         homeViewModel.fetchAdSecondImages()
         homeViewModel.fetchPopular()
+        homeViewModel.fetchAdThirdImages()
+        homeViewModel.fetchActionImages()
         observeUserName()
         setAdAdapter()
         setShopAdapter()
         observeTimer()
         setProductAdapter()
         setRecommendationAdapter()
-        setDowryAdapter()
+//        setDowryAdapter()
         setHistoryAdapter()
         setAdSecondAdapter()
         setPopularAdapter()
+        setAdThirdAdapter()
+        setActionAdapter()
 
     }
 
@@ -77,6 +87,14 @@ class HomeFragment : Fragment() {
             adAdapter.submitList(adImages)
         }
     }
+    private fun setActionAdapter(){
+        actionAdapter = ActionAdapter()
+        binding.rcyActions.adapter = actionAdapter
+        binding.rcyActions.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL ,false)
+        homeViewModel.actionsImage.observe(viewLifecycleOwner){
+            actionAdapter.submitList(it)
+        }
+    }
 
     private fun setAdSecondAdapter(){
         adSecondAdapter = AdSecondAdapter()
@@ -85,7 +103,6 @@ class HomeFragment : Fragment() {
         gridLayoutManager.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {
                 return when(position){
-                    0,1,2 -> 2
                     3,4 ->3
                     else->2
                 }
@@ -102,15 +119,14 @@ class HomeFragment : Fragment() {
 
 
     }
-    private fun setDowryAdapter(){
-       dowryAdapter = DowryAdapter()
-        binding.rcyDowry.adapter = dowryAdapter
-        val gridLayoutManager = GridLayoutManager(context,6)
-        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+    private fun setAdThirdAdapter(){
+        adThirdAdapter = AdThirdAdapter()
+        binding.rcyAdvertisingThird.adapter = adThirdAdapter
+        val gridLayoutManager = GridLayoutManager(context , 6)
+        gridLayoutManager.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {
                 return when(position){
-                    0,1,2,5,6,7-> 2
-                    3,4,8,9->3
+                    3,4 ->3
                     else->2
                 }
             }
@@ -119,12 +135,38 @@ class HomeFragment : Fragment() {
             }
 
         }
-        binding.rcyDowry.layoutManager = gridLayoutManager
-        homeViewModel.dowryImage.observe(viewLifecycleOwner){dowryImages->
-            dowryAdapter.submitList(dowryImages)
+        binding.rcyAdvertisingThird.layoutManager = gridLayoutManager
+        homeViewModel.adThirdImages.observe(viewLifecycleOwner){
+            adThirdAdapter.submitList(it)
         }
 
+
     }
+//    private fun setDowryAdapter(){
+//       dowryAdapter = DowryAdapter()
+//        binding.rcyDowry.adapter = dowryAdapter
+//            val gridLayoutManager = GridLayoutManager(context, 6)
+//            gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+//                override fun getSpanSize(position: Int): Int {
+//                    return when (position) {
+//                        3, 4 ,8,9 -> 3
+//                        else -> 2
+//                    }
+//                }
+//                override fun getSpanGroupIndex(adapterPosition: Int, spanCount: Int): Int {
+//                    return super.getSpanGroupIndex(adapterPosition, spanCount)
+//                }
+//
+//            }
+//
+//         binding.rcyDowry.layoutManager = gridLayoutManager
+//        homeViewModel.dowryImage.observe(viewLifecycleOwner){dowryImages->
+//            if (dowryImages != null) {
+//                dowryAdapter.submitList(dowryImages)
+//            }
+//        }
+//
+//    }
 
     private fun setPopularAdapter(){
         popularAdapter = PopularAdapter()

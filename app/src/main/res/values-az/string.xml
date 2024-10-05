@@ -27,5 +27,7 @@
     <string name="Dowry">Evlər cehizlə dolsun!</string>
     <string name="History">Əvvəl baxıqlarınız</string>
     <string name="Popular">Populyar kateqoriyalar</string>
+    <string name="AllCategory">Bütün kateqoryalara baxmaq</string>
+    <string name="Actions">Tərəfdaşlardan aksiyalar və təkliflər</string>
 
 </resources>
