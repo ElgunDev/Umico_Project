@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="200dp"
-    android:layout_height="wrap_content"
+    android:layout_height="450dp"
     android:layout_marginTop="12dp"
     android:layout_marginLeft="14dp"
     app:cardCornerRadius="10dp"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view"
-
+           app:layout_constraintBottom_toTopOf="@id/txtAction"
             android:layout_marginTop="10dp"
             android:textColor="@color/pink"
             android:textStyle="bold"
@@ -102,6 +102,7 @@
             android:text="@string/Action"
             android:textColor="@color/gray"
             android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/txtCreditMonth"
             />
 
         <TextView
@@ -112,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="00:00:00"
+            android:text=""
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="@color/pink"
@@ -124,12 +125,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/Yellow"
-            android:padding="7dp"
-
-            android:textSize="14sp"
+            android:padding="4dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtAction" />
+            app:layout_constraintTop_toBottomOf="@id/txtAction"
+            app:layout_constraintBottom_toTopOf="@id/txtNameProduct"/>
 
         <TextView
             android:id="@+id/txtNameProduct"
@@ -138,6 +139,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtCreditMonth"
+            app:layout_constraintBottom_toTopOf="@id/ratingBar"
             android:layout_marginTop="13dp"
             android:textSize="15sp"
             />
@@ -149,6 +151,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtNameProduct"
+            app:layout_constraintBottom_toTopOf="@id/btnAddBasket"
             android:numStars="5"
             android:stepSize="0.5"
             android:rating="5"
@@ -168,6 +171,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtNameProduct"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="70dp"
             android:text="@string/Basket"
             android:textSize="13sp"

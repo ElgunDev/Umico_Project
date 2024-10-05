@@ -1,4 +1,4 @@
-package com.matrix.android105_android.data.Repository.Products
+package com.matrix.android105_android.data.Repository.Home.Products
 
 data class Product(
     val credit:String,

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentHomeBinding
@@ -20,6 +22,10 @@ class HomeFragment : Fragment() {
     private lateinit var shopAdapter:ShopsAdapter
     private lateinit var productAdapter:ProductAdapter
     private lateinit var recommendationAdapter: RecommendationAdapter
+    private lateinit var dowryAdapter:DowryAdapter
+    private lateinit var historyAdapter: HistoryAdapter
+    private lateinit var adSecondAdapter: AdSecondAdapter
+    private lateinit var popularAdapter: PopularAdapter
 
     private val homeViewModel: HomeViewModel by viewModels()
 
@@ -46,12 +52,20 @@ class HomeFragment : Fragment() {
         homeViewModel.startCountDown()
         homeViewModel.fetchProducts()
         homeViewModel.fetchRecommendationProducts()
+        homeViewModel.fetchDowryImages()
+        homeViewModel.fetchHistoryProducts()
+        homeViewModel.fetchAdSecondImages()
+        homeViewModel.fetchPopular()
         observeUserName()
         setAdAdapter()
         setShopAdapter()
         observeTimer()
         setProductAdapter()
         setRecommendationAdapter()
+        setDowryAdapter()
+        setHistoryAdapter()
+        setAdSecondAdapter()
+        setPopularAdapter()
 
     }
 
@@ -63,6 +77,65 @@ class HomeFragment : Fragment() {
             adAdapter.submitList(adImages)
         }
     }
+
+    private fun setAdSecondAdapter(){
+        adSecondAdapter = AdSecondAdapter()
+        binding.rcyAdvetisingSecond.adapter = adSecondAdapter
+        val gridLayoutManager = GridLayoutManager(context , 6)
+        gridLayoutManager.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                return when(position){
+                    0,1,2 -> 2
+                    3,4 ->3
+                    else->2
+                }
+            }
+            override fun getSpanGroupIndex(adapterPosition: Int, spanCount: Int): Int {
+                return super.getSpanGroupIndex(adapterPosition, spanCount)
+            }
+
+        }
+        binding.rcyAdvetisingSecond.layoutManager = gridLayoutManager
+        homeViewModel.adSecondImages.observe(viewLifecycleOwner){
+            adSecondAdapter.submitList(it)
+        }
+
+
+    }
+    private fun setDowryAdapter(){
+       dowryAdapter = DowryAdapter()
+        binding.rcyDowry.adapter = dowryAdapter
+        val gridLayoutManager = GridLayoutManager(context,6)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                return when(position){
+                    0,1,2,5,6,7-> 2
+                    3,4,8,9->3
+                    else->2
+                }
+            }
+            override fun getSpanGroupIndex(adapterPosition: Int, spanCount: Int): Int {
+                return super.getSpanGroupIndex(adapterPosition, spanCount)
+            }
+
+        }
+        binding.rcyDowry.layoutManager = gridLayoutManager
+        homeViewModel.dowryImage.observe(viewLifecycleOwner){dowryImages->
+            dowryAdapter.submitList(dowryImages)
+        }
+
+    }
+
+    private fun setPopularAdapter(){
+        popularAdapter = PopularAdapter()
+        binding.rcyPopular.adapter = popularAdapter
+        binding.rcyPopular.layoutManager = GridLayoutManager(context,3)
+        homeViewModel.popularItems.observe(viewLifecycleOwner){
+            popularAdapter.submitList(it)
+        }
+
+    }
+
     private fun setShopAdapter(){
         shopAdapter = ShopsAdapter()
         binding.rcyMarkets.adapter = shopAdapter
@@ -87,6 +160,15 @@ class HomeFragment : Fragment() {
        homeViewModel.recommendationProducts.observe(viewLifecycleOwner){recommendationList->
            recommendationAdapter.submitList(recommendationList)
        }
+    }
+    private fun setHistoryAdapter(){
+        historyAdapter = HistoryAdapter()
+        binding.rcyHistory.adapter = historyAdapter
+        binding.rcyHistory.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false)
+        homeViewModel.historyProduct.observe(viewLifecycleOwner){historyList->
+            historyAdapter.submitList(historyList)
+
+        }
     }
 
 

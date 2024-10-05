@@ -8,44 +8,48 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.matrix.android105_android.data.Repository.Home.advertisement.Advertisement
 import com.matrix.android105_android.databinding.ItemAdvertisingBinding
+import com.matrix.android105_android.databinding.ItemDowryBinding
 
-class AdAdapter:RecyclerView.Adapter<AdAdapter.AdViewHolder>() {
+class AdSecondAdapter:RecyclerView.Adapter<AdSecondAdapter.AdSecondViewHolder>() {
 
-    private val diffCallBack = object :DiffUtil.ItemCallback<Advertisement>(){
+    private val diffCallBack = object : DiffUtil.ItemCallback<Advertisement>(){
         override fun areItemsTheSame(oldItem: Advertisement, newItem: Advertisement): Boolean {
             return oldItem==newItem
         }
 
         override fun areContentsTheSame(oldItem: Advertisement, newItem: Advertisement): Boolean {
-          return oldItem==newItem
+           return oldItem==newItem
         }
 
 
     }
     private val diffUtil = AsyncListDiffer(this,diffCallBack)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdViewHolder {
-        val binding = ItemAdvertisingBinding.inflate(LayoutInflater.from(parent.context) , parent, false)
-        return AdViewHolder(binding)
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdSecondViewHolder {
+        val binding = ItemDowryBinding.inflate(LayoutInflater.from(parent.context) , parent, false)
+        return AdSecondViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-             return diffUtil.currentList.size
+        return diffUtil.currentList.size
     }
 
-    override fun onBindViewHolder(holder: AdViewHolder, position: Int) {
-        val advertisement = diffUtil.currentList[position]
-        return holder.bind(advertisement.imageUrl)
-    }
-
-    inner class AdViewHolder(private val binding:ItemAdvertisingBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(imageUrl: String){
-            Glide.with(binding.root.context)
-                .load(imageUrl)
-                .into(binding.imgAdvertising)
+    override fun onBindViewHolder(holder: AdSecondViewHolder, position: Int) {
+            val advertisementSecond = diffUtil.currentList[position]
+            return holder.bind(advertisementSecond.imageUrl)
         }
 
+    inner class AdSecondViewHolder(private val binding: ItemDowryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(imageUrl: String) {
+            Glide.with(binding.root.context)
+                .load(imageUrl)
+                .into(binding.itemImage)
+        }
     }
+
     fun submitList(list: List<Advertisement>){
         diffUtil.submitList(list)
     }

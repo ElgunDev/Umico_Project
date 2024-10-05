@@ -8,10 +8,13 @@ import javax.inject.Inject
 class AdImplRepository @Inject constructor(
     private val fireStore: FirebaseFirestore
 ): IAdRepository {
-    override suspend fun getAdvertisingImages(): List<String> {
+    override suspend fun getAdvertisingImages(): List<Advertisement> {
         val result = fireStore.collection("advertisements").get().await()
         return result.documents.map {
-            it.getString("imageUrl")?:""
+          val imageUrl=  it.getString("imageUrl")?:""
+            val row = it.getString("row")?:""
+            Advertisement(imageUrl,row)
+
         }
     }
 }

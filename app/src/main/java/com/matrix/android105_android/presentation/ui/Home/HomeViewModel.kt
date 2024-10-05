@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.matrix.android105_android.data.Repository.Home.Shops.Shop
-import com.matrix.android105_android.data.Repository.Products.Product
+import com.matrix.android105_android.data.Repository.Home.advertisement.Advertisement
+import com.matrix.android105_android.data.Repository.Home.Products.Product
+import com.matrix.android105_android.data.Repository.Home.popular.Popular
 import com.matrix.android105_android.domain.UseCase.Home.Shops.ShopsUseCase
 import com.matrix.android105_android.domain.UseCase.Profil.GetUserNameUseCase
 import com.matrix.android105_android.domain.UseCase.Home.advertisement.AdUseCase
+import com.matrix.android105_android.domain.UseCase.Home.dowry.DowryUseCase
+import com.matrix.android105_android.domain.UseCase.Home.popular.PopularUseCase
 import com.matrix.android105_android.domain.UseCase.Home.products.GetProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,14 +26,16 @@ class HomeViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val adUseCase: AdUseCase,
     private val shopUseCase:ShopsUseCase,
-    private val productUseCase: GetProductUseCase
+    private val productUseCase: GetProductUseCase,
+    private val dowryUseCase: DowryUseCase,
+    private val popularUseCase: PopularUseCase
 ):ViewModel() {
     private val _userName = MutableLiveData<String>()
     val username:MutableLiveData<String>
         get() = _userName
 
-    private val _adImages = MutableLiveData<List<String>>()
-    val adImages:MutableLiveData<List<String>>
+    private val _adImages = MutableLiveData<List<Advertisement>>()
+    val adImages:MutableLiveData<List<Advertisement>>
         get() = _adImages
 
     private val _shops= MutableLiveData<List<Shop>>()
@@ -47,6 +53,22 @@ class HomeViewModel @Inject constructor(
     private val _recommendationProducts = MutableLiveData<List<Product>>()
     val recommendationProducts:MutableLiveData<List<Product>>
         get()= _recommendationProducts
+
+    private val _dowryImage = MutableLiveData<List<String>>()
+    val dowryImage:MutableLiveData<List<String>>
+        get() = _dowryImage
+
+    private val _historyProducts = MutableLiveData<List<Product>>()
+    val historyProduct:MutableLiveData<List<Product>>
+        get() = _historyProducts
+
+    private val _adSecondImages = MutableLiveData<List<Advertisement>>()
+    val adSecondImages:MutableLiveData<List<Advertisement>>
+        get()= _adSecondImages
+
+    private val _popularItems  = MutableLiveData<List<Popular>>()
+    val popularItems :MutableLiveData<List<Popular>>
+        get() = _popularItems
 
     private lateinit var countDownTimer: CountDownTimer
     private val totalTimer = (23*60*60*1000) + (59*60*1000) + (59*1000)
@@ -69,13 +91,56 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val images = adUseCase.getAdvertisementImages()
-                _adImages.value = images
+                val filterImages = images.filter {
+                    it.row == "first"
+                }
+                _adImages.value = filterImages
+            }
+            catch (e:Exception){
+            }
+        }
+    }
+
+    fun fetchAdSecondImages(){
+        viewModelScope.launch {
+            try {
+                val images = adUseCase.getAdvertisementImages()
+                val filterImages = images.filter {
+                    it.row == "second"
+                }
+                _adSecondImages.value = filterImages
             }
             catch (e:Exception){
 
             }
         }
     }
+
+    fun fetchDowryImages(){
+        viewModelScope.launch {
+            try {
+                val images = dowryUseCase.getDowry()
+                _dowryImage.value = images
+            }
+            catch (e:Exception){
+
+            }
+        }
+    }
+
+    fun fetchPopular(){
+        viewModelScope.launch {
+            try {
+                val popularItems = popularUseCase.getPopular()
+                _popularItems.value = popularItems
+            }
+            catch (e:Exception){
+
+            }
+        }
+    }
+
+
 
     fun fetchShops(){
         viewModelScope.launch {
@@ -108,9 +173,24 @@ class HomeViewModel @Inject constructor(
             try {
                 val productList =productUseCase.getProducts()
                 val filteredProduct = productList.filter {
-                    it.category == "telefon"
+                    it.category == "telefon" || it.category == "saat"
                 }
                 _recommendationProducts.value = filteredProduct
+            }
+            catch (e:Exception){
+
+            }
+        }
+    }
+
+    fun fetchHistoryProducts(){
+        viewModelScope.launch {
+            try {
+                val productList = productUseCase.getProducts()
+                val filteredProducts = productList.filter {
+                    it.category == "məişət" || it.category == "telefon"
+                }
+                _historyProducts.value = filteredProducts
             }
             catch (e:Exception){
 
