@@ -1,22 +1,21 @@
 package com.matrix.android105_android.presentation.ui.Home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-
+import androidx.recyclerview.widget.RecyclerView
 import com.matrix.android105_android.R
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.EndlessRecyclerViewScrollListener
 import com.matrix.android105_android.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -32,6 +31,8 @@ class HomeFragment : Fragment() {
     private lateinit var popularAdapter: PopularAdapter
     private lateinit var adThirdAdapter: AdThirdAdapter
     private lateinit var actionAdapter: ActionAdapter
+    private lateinit var allProductAdapter: AllProductAdapter
+    private lateinit var endlessScrollListener: MyEndlessScrollListener
 
     private val homeViewModel: HomeViewModel by viewModels()
 
@@ -64,6 +65,7 @@ class HomeFragment : Fragment() {
         homeViewModel.fetchPopular()
         homeViewModel.fetchAdThirdImages()
         homeViewModel.fetchActionImages()
+        homeViewModel.loadProduct(false)
         observeUserName()
         setAdAdapter()
         setShopAdapter()
@@ -76,7 +78,83 @@ class HomeFragment : Fragment() {
         setPopularAdapter()
         setAdThirdAdapter()
         setActionAdapter()
+        setAllProductAdapter()
+        clickLIkedButton()
 
+    }
+    class MyEndlessScrollListener(
+        layoutManager: LinearLayoutManager,
+        private val loadMoreCallback: () -> Unit // Callback for loading more items
+    ) : EndlessRecyclerViewScrollListener(layoutManager) {
+
+        override fun onLoadMore() {
+            // Call the callback to load more items
+            loadMoreCallback()
+        }
+    }
+
+    private fun setAllProductAdapter(){
+        allProductAdapter = AllProductAdapter(
+            isProductLiked = {productId->
+                homeViewModel.isProductLiked(productId)
+            },
+            addProduct = {item , notify->
+                homeViewModel.addProductToLikes(item , notify)
+            },
+            deleteProduct = {item , notify->
+                homeViewModel.removeLikedProduct(item , notify)
+            }
+        )
+        val layoutManager = GridLayoutManager(context,2)
+        binding.rcyAllProduct.adapter =allProductAdapter
+        binding.rcyAllProduct.layoutManager = layoutManager
+        homeViewModel.productsLiveData.observe(viewLifecycleOwner){
+            allProductAdapter.submitList(it)
+        }
+        homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+        endlessScrollListener = MyEndlessScrollListener(layoutManager) {
+            homeViewModel.loadMoreProducts{println("SDHFGHFSDFGHFDSHJGHGSASD")}
+        }
+
+        binding.rcyAllProduct.addOnScrollListener(object : EndlessRecyclerViewScrollListener(binding.rcyAllProduct.layoutManager as GridLayoutManager){
+            override fun onLoadMore() {
+                homeViewModel.loadMoreProducts { println("SDHFGHFSDFGHFDSHJGHGSASD") }
+            }
+        })
+//        binding.scrollView.(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//
+//                // Get the layout manager
+//                val layoutManager = recyclerView.layoutManager as GridLayoutManager?
+//
+//                // Total number of items in the adapter
+//                val totalItemCount = layoutManager!!.getItemCount()
+//
+//                // Last visible item position
+//                val lastVisibleItemPosition = layoutManager!!.findLastVisibleItemPosition()
+//
+//                Log.d("RecyclerView", "Reached the end of the list!")
+//
+//                // Detect if user has scrolled to the end of the list
+//                if (lastVisibleItemPosition == totalItemCount - 1) {
+//                    // You have reached the end of the list
+//                    Log.d("RecyclerView", "Reached the end of the list!")
+//
+//                    // Perform your action here (e.g., load more items)
+//                }
+//            }
+//        })
+
+
+    }
+
+    private fun clickLIkedButton(){
+        binding.btnLike.setOnClickListener(){
+            findNavController().navigate(R.id.action_mainFragment_to_likedProductFragment)
+        }
     }
 
     private fun setAdAdapter(){
@@ -187,7 +265,28 @@ class HomeFragment : Fragment() {
         }
     }
     private fun setProductAdapter(){
-      productAdapter = ProductAdapter()
+      productAdapter = ProductAdapter(
+          isProductLiked = {productId->
+              homeViewModel.isProductLiked(productId)
+          },
+          addProduct = {item , notify->
+              homeViewModel.addProductToLikes(item, notify)
+
+          }
+          , deleteProduct = {item , notify->
+              homeViewModel.removeLikedProduct(item , notify)
+          },
+          isProductBasket = {productId->
+              homeViewModel.isProductBasket(productId)
+          },
+          addProductBasket = {item,notify->
+              homeViewModel.addProductToBasket(item,notify)
+          },
+          deleteProductBasket = {item , notify->
+              homeViewModel.deleteProductToBasket(item,notify)
+          }
+
+      )
         binding.rcyDiscountedproducts.adapter = productAdapter
         binding.rcyDiscountedproducts.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
         homeViewModel.product.observe(viewLifecycleOwner){productList->
@@ -196,7 +295,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecommendationAdapter(){
-        recommendationAdapter = RecommendationAdapter()
+        recommendationAdapter = RecommendationAdapter(
+            isProductLiked = {productId->
+                homeViewModel.isProductLiked(productId)
+            },
+            addProduct = {item,notify->
+                homeViewModel.addProductToLikes(item ,notify)
+
+            },
+            deleteProduct = { item, notify ->
+                homeViewModel.removeLikedProduct(item , notify)
+            }
+        )
         binding.rcyRecomendations.adapter = recommendationAdapter
         binding.rcyRecomendations.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL,false)
        homeViewModel.recommendationProducts.observe(viewLifecycleOwner){recommendationList->
@@ -204,7 +314,17 @@ class HomeFragment : Fragment() {
        }
     }
     private fun setHistoryAdapter(){
-        historyAdapter = HistoryAdapter()
+        historyAdapter = HistoryAdapter(
+            isProductLiked = {productId->
+                homeViewModel.isProductLiked(productId)
+            },
+            addProduct = {item , notify ->
+                homeViewModel.addProductToLikes(item , notify)
+            },
+            deleteProduct = {item, notify->
+                homeViewModel.removeLikedProduct(item , notify)
+            }
+        )
         binding.rcyHistory.adapter = historyAdapter
         binding.rcyHistory.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false)
         homeViewModel.historyProduct.observe(viewLifecycleOwner){historyList->

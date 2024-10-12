@@ -2,7 +2,7 @@ package com.matrix.android105_android.domain.UseCase.Login
 
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.matrix.android105_android.domain.Repository.Login.IAuthRepository
+import com.matrix.android105_android.domain.Network.FireBase.Repository.Login.IAuthRepository
 import com.matrix.android105_android.domain.UseCase.Login.ILoginUseCase
 import javax.inject.Inject
 

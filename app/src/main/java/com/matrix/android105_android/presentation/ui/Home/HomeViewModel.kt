@@ -1,23 +1,32 @@
 package com.matrix.android105_android.presentation.ui.Home
 
 import android.os.CountDownTimer
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.matrix.android105_android.data.Repository.Home.Shops.Shop
-import com.matrix.android105_android.data.Repository.Home.advertisement.Advertisement
-import com.matrix.android105_android.data.Repository.Home.Products.Product
-import com.matrix.android105_android.data.Repository.Home.dowry.Dowry
-import com.matrix.android105_android.data.Repository.Home.popular.Popular
+import com.matrix.android105_android.data.Local.db.entity.BasketProductEntity
+import com.matrix.android105_android.data.Local.db.entity.LikedProductEntity
+import com.matrix.android105_android.data.Local.db.repository.BasketProductImplRepository
+import com.matrix.android105_android.data.Local.db.repository.LikedProductImplRepository
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Shops.Shop
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.advertisement.Advertisement
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.Product
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.dowry.Dowry
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.popular.Popular
+import com.matrix.android105_android.domain.Local.Repository.BasketProduct.IBasketProductRepository
+import com.matrix.android105_android.domain.Local.Repository.LikedProduct.ILikedProductRepository
 import com.matrix.android105_android.domain.UseCase.Home.Shops.ShopsUseCase
 import com.matrix.android105_android.domain.UseCase.Profil.GetUserNameUseCase
 import com.matrix.android105_android.domain.UseCase.Home.advertisement.AdUseCase
 import com.matrix.android105_android.domain.UseCase.Home.dowry.DowryUseCase
 import com.matrix.android105_android.domain.UseCase.Home.popular.PopularUseCase
+import com.matrix.android105_android.domain.UseCase.Home.products.GetAllProductUseCase
 import com.matrix.android105_android.domain.UseCase.Home.products.GetProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.internal.notify
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -29,7 +38,10 @@ class HomeViewModel @Inject constructor(
     private val shopUseCase:ShopsUseCase,
     private val productUseCase: GetProductUseCase,
     private val dowryUseCase: DowryUseCase,
-    private val popularUseCase: PopularUseCase
+    private val popularUseCase: PopularUseCase,
+    private val allProductUseCase: GetAllProductUseCase,
+    private val likedProductImplRepository: ILikedProductRepository,
+    private val basketProductImplRepository: IBasketProductRepository
 ):ViewModel() {
     private val _userName = MutableLiveData<String>()
     val username:MutableLiveData<String>
@@ -79,8 +91,141 @@ class HomeViewModel @Inject constructor(
     val actionsImage :MutableLiveData<List<Advertisement>>
         get() = _actionsImage
 
+
+    private val _productsLiveData = MutableLiveData<List<Product>>()
+    val productsLiveData: LiveData<List<Product>> get() = _productsLiveData
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+    private val allProducts = mutableListOf<Product>()
+
+    val likedProduct: LiveData<List<LikedProductEntity>> = likedProductImplRepository.getLikedProduct()
+
+    val basketProduct:LiveData<List<BasketProductEntity>> = basketProductImplRepository.getBasketProduct()
+
     private lateinit var countDownTimer: CountDownTimer
     private val totalTimer = (23*60*60*1000) + (59*60*1000) + (59*1000)
+
+
+    fun addProductToLikes(product: Product,notify: () -> Unit){
+        viewModelScope.launch {
+            likedProductImplRepository.addProductToDatabase(
+                LikedProductEntity(
+                    product.id,
+                    product.credit,
+                    product.category,
+                    product.discountPrice,
+                    product.discountRate,
+                    product.image,
+                    product.name,
+                    product.price,
+                    product.rating
+                )
+            )
+            val isLiked =  isProductLiked(product.id)
+           if (isLiked){
+               notify()
+           }
+        }
+    }
+
+    fun removeLikedProduct(product: Product ,notify: () -> Unit){
+        viewModelScope.launch {
+            likedProductImplRepository.deleteLikedProduct(product.id)
+            val isLiked = isProductLiked(product.id)
+            if (!isLiked){
+                notify
+            }
+        }
+    }
+
+    suspend fun isProductLiked(productId:String):Boolean{
+            return likedProductImplRepository.isProductLiked(productId)
+    }
+
+    fun addProductToBasket(product: Product , notify: () -> Unit){
+        viewModelScope.launch {
+            basketProductImplRepository.addProductToDatabase(
+                BasketProductEntity(
+                    product.id,
+                    product.credit,
+                    product.category,
+                    product.discountPrice,
+                    product.discountRate,
+                    product.image,
+                    product.name,
+                    product.price,
+                    product.rating
+                )
+            )
+            val isBasket = isProductBasket(product.id)
+            if (isBasket){
+                notify()
+            }
+        }
+    }
+    fun deleteProductToBasket(product: Product , notify: () -> Unit){
+        viewModelScope.launch {
+            basketProductImplRepository.deleteBasketProduct(product.id)
+            val isBasket = isProductBasket(product.id)
+            if (!isBasket){
+                notify
+            }
+        }
+    }
+
+    suspend fun isProductBasket(productId: String):Boolean{
+        return basketProductImplRepository.isProductBasket(productId)
+    }
+
+
+     fun loadProduct(loadMore:Boolean) {
+         if (_isLoading.value == true) return
+         if (!loadMore) {
+             allProducts.clear()
+         }
+         _isLoading.value = true
+
+         viewModelScope.launch {
+            allProductUseCase.getAllProducts(loadMore) { result ->
+                println("BBSVDKDGDHGKHLHGKJGHSJHGSLKGHHLSHGHGJKDSGFHKS")
+                result.onSuccess { products ->
+                    println("SSNDJKGHDJKHGDDJHGKDNKHGDKGDSIHGKIGHIIDGHKJG")
+                    allProducts.addAll(products)
+                    _productsLiveData.value = allProducts
+                }.onFailure { error ->
+                    // Handle error (e.g., show a message to the user)
+                    _isLoading.value = false
+                }
+            }
+        }
+    }
+
+    // Load more products for infinite scroll
+    fun loadMoreProducts(callback: () -> Unit) {
+        if (_isLoading.value == true) return
+
+        viewModelScope.launch {
+            _isLoading.value = true // Show loading state
+
+            allProductUseCase.getAllProducts(true) { result ->
+                println("BSVDKDGDHGKHLHGKJGHSJHGSLKGHHLSHGHGJKDSGFHKS")
+                result.onSuccess { newProducts ->
+                    println("SNDJKGHDJKHGDDJHGKDNKHGDKGDSIHGKIGHIIDGHKJG")
+                    if (newProducts.isNotEmpty()) {
+                        allProducts.addAll(newProducts)
+                        _productsLiveData.value = allProducts
+                    } else {
+                        println("No more products available to load.")
+                    }
+                }.onFailure { error ->
+                    // Handle error (e.g., log it or show a message to the user)
+                    println("Error loading more products: ${error.message}")
+                }
+                _isLoading.value = false // Hide loading state
+                callback() // Notify that loading is finished
+            }
+        }
+    }
 
     fun fetchUserName(){
         val uid = firebaseAuth.currentUser?.uid
