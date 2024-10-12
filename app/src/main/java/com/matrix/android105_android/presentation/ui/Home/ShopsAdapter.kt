@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.matrix.android105_android.data.Repository.Home.Shops.Shop
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Shops.Shop
 import com.matrix.android105_android.databinding.ItemShopsBinding
 import java.util.concurrent.TimeUnit
 

@@ -1,7 +1,7 @@
 package com.matrix.android105_android.domain.UseCase.Home.advertisement
 
-import com.matrix.android105_android.data.Repository.Home.advertisement.Advertisement
-import com.matrix.android105_android.domain.Repository.Home.advertisement.IAdRepository
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.advertisement.Advertisement
+import com.matrix.android105_android.domain.Network.FireBase.Repository.Home.advertisement.IAdRepository
 import javax.inject.Inject
 
 class AdUseCase @Inject constructor(

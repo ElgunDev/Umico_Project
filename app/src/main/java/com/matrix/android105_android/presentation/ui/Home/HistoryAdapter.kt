@@ -1,16 +1,25 @@
 package com.matrix.android105_android.presentation.ui.Home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.matrix.android105_android.data.Repository.Home.Products.Product
+import com.matrix.android105_android.R
+import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.Product
 import com.matrix.android105_android.databinding.ItemImageButtonBinding
 import com.matrix.android105_android.databinding.ItemProductsBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class HistoryAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HistoryAdapter(
+    private val isProductLiked: suspend (String)->Boolean,
+    private val addProduct:(product:Product , notify:()->Unit)->Unit,
+    private val deleteProduct:(product:Product , notify:()->Unit)->Unit
+):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val viewTypeProduct = 1
     private val viewTypeImageButton = 2
     private val additionalImageButtonCount =1
@@ -67,7 +76,7 @@ class HistoryAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == viewTypeProduct){
             val product = diffUtil.currentList[position]
-            (holder as HistoryViewHolder).bind(product.image , product.credit,product.discountPrice, product.discountRate,product.name , product.price)
+            (holder as HistoryViewHolder).bind(product)
         }
         else{
             (holder as ImageButtonViewHolder).bind()
@@ -76,27 +85,60 @@ class HistoryAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class HistoryViewHolder(private val binding:ItemProductsBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(  imageUrl: String,
-                   credit: String,
-                   discountPrize: String,
-                   discountRate: String,
-                   name: String,
-                   price: String,){
-            binding.txtCreditMonth.text = credit
-            binding.discountedPrice.text = discountPrize
-            binding.discountRate.text = discountRate
-            binding.txtNameProduct.text = name
-            binding.price.text = price
-            binding.txtAction.text = ""
+        fun bind(product: Product){
+            binding.txtCreditMonth.text = product.credit
+            binding.discountedPrice.text = product.discountPrice
+            binding.discountRate.text = product.discountPrice
+            binding.txtNameProduct.text = product.name
+            binding.price.text = product.price
+            binding.txtAction.visibility = View.GONE
             Glide.with(binding.root.context)
-                .load(imageUrl)
+                .load(product.image)
                 .into(binding.imgProduct)
+            if (product.id == "5"){
+                binding.discountRate.visibility = View.GONE
+                binding.price.visibility = View.GONE
+            }
+
+            binding.imgLike.setOnClickListener(){
+                CoroutineScope(Dispatchers.Main).launch {
+                    val isLiked = isProductLiked(product.id)
+                    if (!isLiked){
+                        addProduct(product){
+                            notifyDataSetChanged()
+                        }
+                        updateLikeButton(isLiked)
+                    }
+                    else{
+                        deleteProduct(product){
+                            notifyDataSetChanged()
+                        }
+                        updateLikeButton(!isLiked)
+                    }
+                }
+            }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                val isLiked = isProductLiked(product.id)
+                updateLikeButton(isLiked)
+            }
+        }
+
+        private fun updateLikeButton(isLiked:Boolean){
+            if (isLiked){
+                binding.imgLike.setImageResource(R.drawable.favorite_24dp_fill1_wght400_grad0_opsz24)
+            }
+            else{
+                binding.imgLike.setImageResource(R.drawable.favorite_fill0_wght400_grad0_opsz24)
+            }
         }
 
     }
 
     inner  class ImageButtonViewHolder(private val binding: ItemImageButtonBinding):RecyclerView.ViewHolder(binding.root){
-    fun bind(){}
+    fun bind(){
+
+       }
     }
 
     fun submitList(list: List<Product>){

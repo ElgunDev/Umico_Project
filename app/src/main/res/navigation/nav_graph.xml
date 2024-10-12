@@ -9,7 +9,9 @@
         android:id="@+id/homeFragment"
         android:name="com.matrix.android105_android.presentation.ui.Home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+    </fragment>
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.matrix.android105_android.presentation.ui.Shop.ShopFragment"
@@ -68,5 +70,24 @@
         android:id="@+id/mainFragment"
         android:name="com.matrix.android105_android.presentation.ui.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_likedProductFragment"
+            app:destination="@id/likedProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likedProductFragment"
+        android:name="com.matrix.android105_android.presentation.ui.LikedProduct.LikedProductFragment"
+        android:label="fragment_liked_product"
+        tools:layout="@layout/fragment_liked_product" />
+    <fragment
+        android:id="@+id/umicoMarketFragment"
+        android:name="com.matrix.android105_android.presentation.ui.LikedProduct.UmicoMarketFragment"
+        android:label="fragment_umico_market"
+        tools:layout="@layout/fragment_umico_market" />
+    <fragment
+        android:id="@+id/umicoBonusFragment"
+        android:name="com.matrix.android105_android.presentation.ui.LikedProduct.UmicoBonusFragment"
+        android:label="fragment_umico_bonus"
+        tools:layout="@layout/fragment_umico_bonus" />
 </navigation>

@@ -22,6 +22,8 @@
     <string name="Discounted">Up to 10% with premium</string>
     <string name="Action">Action:</string>
     <string name="Basket">BASKET</string>
+    <string name="in_the_basket">IN THE BASKET</string>
+
     <string name="recommendations">Special recommendations for you</string>
     <string name="All">ALL</string>
     <string name="Dowry">Let the houses be filled with dowry!</string>
@@ -29,4 +31,6 @@
     <string name="Popular">Popular categories</string>
     <string name="AllCategory">View all categories</string>
     <string name="Actions">Promotions and offers from partners</string>
+    <string name="AllSales">best sellers</string>
+    <string name="Select">The chosen ones</string>
 </resources>
