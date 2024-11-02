@@ -1,24 +1,20 @@
 package com.matrix.android105_android.presentation.ui.Home
 
-import android.content.Context
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.matrix.android105_android.R
-import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Shops.Shop
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.Product
 import com.matrix.android105_android.databinding.ItemImageButtonBinding
 import com.matrix.android105_android.databinding.ItemProductsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
@@ -97,10 +93,10 @@ class ProductAdapter(
 
          fun bind(product: Product){
              binding.txtCreditMonth.text = product.credit
-             binding.discountedPrice.text = product.discountPrice
+             binding.discountedPrice.text = product.discountPrice.toString()
              binding.discountRate.text = product.discountRate
              binding.txtNameProduct.text = product.name
-             binding.price.text = product.price
+             binding.price.text = product.price.toString()
              binding.ratingBar.rating = product.rating.toFloat()
              Glide.with(binding.root.context)
                  .load(product.image)

@@ -12,5 +12,7 @@ interface IBasketProductRepository {
 
     suspend fun isProductBasket(productId: String):Boolean
 
+    suspend fun updateBasketProductQuantity(productId: String , newQuantity:Int)
+
 
 }

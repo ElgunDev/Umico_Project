@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentUmicoBonusBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
 class UmicoBonusFragment : Fragment() {
     private lateinit var binding:FragmentUmicoBonusBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,4 +24,9 @@ class UmicoBonusFragment : Fragment() {
         binding = FragmentUmicoBonusBinding.inflate(layoutInflater)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 }

@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.LikedProduct.UmicoBonusFragment">
+    <ImageView
+        android:id="@+id/imgLike"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/favorite_fill0_wght400_grad0_opsz24_soft_gray"
 
-    <!-- TODO: Update blank fragment layout -->
+        />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/txtNoProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLike"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:padding="30dp"
+        android:text="@string/NoCompany"
+        />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/txtAddList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/txtNoProduct"
+        app:layout_constraintRight_toRightOf="@id/txtNoProduct"
+        app:layout_constraintTop_toBottomOf="@id/txtNoProduct"
+        android:text="@string/AddCompany"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:padding="20dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

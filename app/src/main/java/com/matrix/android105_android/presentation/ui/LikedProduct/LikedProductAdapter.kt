@@ -49,10 +49,10 @@ class LikedProductAdapter():RecyclerView.Adapter<LikedProductAdapter.LikedProduc
     inner class LikedProductViewHolder(private val binding: ItemProductsBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(likedProduct:LikedProductEntity) {
             binding.txtCreditMonth.text = likedProduct.credit
-            binding.discountedPrice.text = likedProduct.discountPrice
+            binding.discountedPrice.text = likedProduct.discountPrice.toString()
             binding.discountRate.text = likedProduct.discountRate
             binding.txtNameProduct.text = likedProduct.name
-            binding.price.text = likedProduct.price
+            binding.price.text = likedProduct.price.toString()
             binding.txtAction.visibility = View.GONE
             Glide.with(binding.root.context)
                 .load(likedProduct.image)

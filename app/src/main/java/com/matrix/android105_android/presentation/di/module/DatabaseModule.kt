@@ -22,6 +22,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+    val MIGRATION_2_4 = object : Migration(2, 4) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE LikedProduct ADD COLUMN quantity INTEGER NOT NULL DEFAULT 1")
+        }
+    }
 
     @Provides
     @Singleton
@@ -31,6 +36,7 @@ object DatabaseModule {
             LikedProductDatabase::class.java,
             "liked_priduct_database"
         )
+            .addMigrations(MIGRATION_2_4)
             .build()
 
     }

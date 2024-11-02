@@ -29,12 +29,15 @@ class AllProductImplRepository @Inject constructor(
                     val id = it.getString("id")?:""
                     val imageUrl = it.getString("image") ?: ""
                     val credit = it.getString("Credit") ?: ""
-                    val discountPrice = it.getString("discount_price") ?: ""
+                    val discountPrice = (it.get("discount_price") as? Double) ?:0.0
                     val discountRate = it.getString("discount_rate") ?: ""
                     val category = it.getString("category") ?: ""
                     val name = it.getString("name") ?: ""
-                    val price = it.getString("price") ?: ""
+                    val price = (it.get("price") as? Double) ?:0.0
                     val rating = it.getString("rating") ?: ""
+                    val companyName = it.getString("company_name")?:""
+                    val companyLogo = it.getString("company_logo")?:""
+                    val stock = (it.get("stock") as? Long)?:0L
 
                     Product(
                         id,
@@ -45,7 +48,11 @@ class AllProductImplRepository @Inject constructor(
                         imageUrl,
                         name,
                         price,
-                        rating
+                        rating,
+                        companyName,
+                        companyLogo,
+                        null,
+                        stock
                     )
                 }
                 lastVisibilityProduct = result.documents[result.size() - 1]

@@ -44,10 +44,14 @@ class UmicoMarketFragment : Fragment() {
         homeViewModel.likedProduct.observe(viewLifecycleOwner){
             if (it.isNullOrEmpty()) {
                 binding.rcyUmicoMarket.visibility = View.GONE
-                binding.emptyStateView.visibility = View.VISIBLE
+                binding.imgLike.visibility = View.VISIBLE
+                binding.txtNoProduct.visibility = View.VISIBLE
+                binding.txtAddList.visibility = View.VISIBLE
             } else {
                 binding.rcyUmicoMarket.visibility = View.VISIBLE
-                binding.emptyStateView.visibility = View.GONE
+                binding.imgLike.visibility = View.GONE
+                binding.txtAddList.visibility = View.GONE
+                binding.txtNoProduct.visibility = View.GONE
                 likedAdapter.submitList(it)
             }
         }

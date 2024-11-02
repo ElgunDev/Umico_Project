@@ -21,4 +21,7 @@ interface BasketProductDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM basket_product WHERE id=:productId)")
     suspend fun isProductBasket(productId: String):Boolean
+
+    @Query("UPDATE BASKET_PRODUCT SET quantity=:newQuantity WHERE id=:productId")
+    suspend fun updateQuantity(productId: String , newQuantity:Int)
 }

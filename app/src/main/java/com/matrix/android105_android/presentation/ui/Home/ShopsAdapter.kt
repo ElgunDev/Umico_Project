@@ -38,16 +38,16 @@ class ShopsAdapter:RecyclerView.Adapter<ShopsAdapter.ShopsViewHolder>( ) {
 
     override fun onBindViewHolder(holder: ShopsViewHolder, position: Int) {
         val shop = diffUtil.currentList[position]
-        return holder.bind(shop.imageUrl, shop.nameTop, shop.nameBottom)
+        return holder.bind(shop)
     }
 
     inner class ShopsViewHolder(private val binding: ItemShopsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(imageUrl: String, nameTop: String, nameBottom: String) {
-            binding.txtShopsTop.text = nameTop
-            binding.txtShopsBottom.text = nameBottom
+        fun bind(shop:Shop) {
+            binding.txtShopsTop.text = shop.nameTop
+            binding.txtShopsBottom.text = shop.nameBottom
             Glide.with(binding.root.context)
-                .load(imageUrl)
+                .load(shop.imageUrl)
                 .into(binding.imgShops)
         }
     }

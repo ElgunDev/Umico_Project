@@ -74,6 +74,12 @@
         <action
             android:id="@+id/action_mainFragment_to_likedProductFragment"
             app:destination="@id/likedProductFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_basketProductFragment"
+            app:destination="@id/basketProductFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profilFragment"
+            app:destination="@id/profilFragment" />
     </fragment>
     <fragment
         android:id="@+id/likedProductFragment"
@@ -85,6 +91,12 @@
         android:name="com.matrix.android105_android.presentation.ui.LikedProduct.UmicoMarketFragment"
         android:label="fragment_umico_market"
         tools:layout="@layout/fragment_umico_market" />
+
+    <fragment
+        android:id="@+id/basketProductFragment"
+        android:name="com.matrix.android105_android.presentation.ui.BasketProduct.BasketProductFragment"
+        android:label="fragment_basket_product"
+        tools:layout="@layout/fragment_basket_product" />
     <fragment
         android:id="@+id/umicoBonusFragment"
         android:name="com.matrix.android105_android.presentation.ui.LikedProduct.UmicoBonusFragment"

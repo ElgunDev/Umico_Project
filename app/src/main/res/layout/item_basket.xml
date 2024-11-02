@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="13dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/imgCompany"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_launcher_background"
+                />
+
+            <TextView
+                android:id="@+id/txtSeller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Seller"
+                app:layout_constraintLeft_toRightOf="@id/imgCompany"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/txtCompany"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/gray"
+                android:textSize="13sp"
+                />
+
+            <TextView
+                android:id="@+id/txtCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/txtSeller"
+                app:layout_constraintTop_toBottomOf="@id/txtSeller"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+
+            <CheckBox
+                android:id="@+id/checkBoxItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:checked="true"
+                />
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintLeft_toRightOf="@id/checkBoxItem"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/layoutDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_delivery"
+                android:padding="4dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="@id/checkBoxItem"
+                app:layout_constraintLeft_toRightOf="@id/imgProduct"
+                app:layout_constraintRight_toRightOf="parent"
+                >
+
+                <!-- Delivery Icon -->
+                <ImageView
+                    android:id="@+id/delivery_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/local_shipping_24dp_e8eaed_fill0_wght400_grad0_opsz24"
+                    app:tint="@color/orange" />
+
+                <!-- Delivery Text -->
+                <TextView
+                    android:id="@+id/delivery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 saata çatdırılma"
+                    android:textColor="@color/orange"
+                    android:textSize="10sp"
+                    android:layout_marginStart="4dp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="20dp"
+                    android:background="@color/DarkBronze"
+                    android:layout_marginStart="8dp"/>
+
+                <!-- Free Text -->
+                <TextView
+                    android:id="@+id/free_delivery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pulsuz"
+                    android:textColor="@color/DarkBronze"
+                    android:textSize="10sp"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtProductName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/layoutDelivery"
+                app:layout_constraintTop_toBottomOf="@id/layoutDelivery"
+                android:layout_marginTop="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="30dp"
+                android:textSize="17sp"
+                />
+
+            <TextView
+                android:id="@+id/discountRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/txtProductName"
+                app:layout_constraintTop_toBottomOf="@id/txtProductName"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/bg_discount_rate"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/discountedPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@id/txtProductName"
+                app:layout_constraintTop_toBottomOf="@id/discountRate"
+                android:textColor="@color/pink"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:id="@+id/txtManat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/discountedPrice"
+                app:layout_constraintTop_toTopOf="@id/discountedPrice"
+                android:textSize="16sp"
+                android:text="₼"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/pink"
+                />
+
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintLeft_toRightOf="@+id/txtManat"
+                app:layout_constraintTop_toTopOf="@id/discountedPrice"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/txtManatSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@id/price"
+                app:layout_constraintTop_toTopOf="@id/price"
+                android:textSize="14sp"
+                android:layout_marginLeft="5dp"
+                android:text="₼"
+                />
+
+
+            <TextView
+                android:id="@+id/txtCreditMonth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Yellow"
+                android:padding="4dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/txtProductName"
+                app:layout_constraintTop_toBottomOf="@id/price"
+                android:layout_marginTop="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="4dp"
+                app:layout_constraintLeft_toRightOf="@id/imgProduct"
+                app:layout_constraintTop_toBottomOf="@id/txtCreditMonth"
+                android:layout_marginTop="30dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_minus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                  android:text="-"
+                    android:textSize="20sp"
+                    android:background="@drawable/bg_count"
+                    android:gravity="center"/>
+
+
+                <TextView
+                    android:id="@+id/tv_number"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:background="@drawable/bg_count"
+                    android:padding="4dp" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_plus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="+"
+                    android:textSize="10sp"
+                    android:background="@drawable/bg_count"
+                    android:gravity="center" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/TotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Price"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/txtTotalPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toLeftOf="@id/txtManatPrice"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginRight="5dp"
+                />
+            <TextView
+                android:id="@+id/txtManatPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtTotalPayment"
+                android:textSize="18sp"
+                android:text="₼"
+
+                />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

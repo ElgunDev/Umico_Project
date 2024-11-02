@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentMainBinding
@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
+    
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,12 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
         setupBottomNavMenu()
+
     }
+
+
+
+
 
     private fun setupViewPager() {
 
@@ -69,5 +75,10 @@ class MainFragment : Fragment() {
         )
 
 
+    }
+
+    fun navigateToProfil() {
+        binding.bottomNavMenu.selectedItemId = R.id.profil
+        binding.viewPager.currentItem = 4
     }
 }
