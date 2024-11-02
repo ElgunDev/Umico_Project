@@ -4,4 +4,6 @@ import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Produ
 
 interface IProductRepository {
     suspend fun getProduct():List<Product>
+
+    suspend fun updateProductStock(productId:String , newStock:Long)
 }

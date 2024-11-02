@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.matrix.android105_android.R
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.EndlessRecyclerViewScrollListener
 import com.matrix.android105_android.databinding.FragmentHomeBinding
+import com.matrix.android105_android.presentation.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -35,6 +36,7 @@ class HomeFragment : Fragment() {
     private lateinit var endlessScrollListener: MyEndlessScrollListener
 
     private val homeViewModel: HomeViewModel by viewModels()
+
 
 
 
@@ -79,16 +81,18 @@ class HomeFragment : Fragment() {
         setAdThirdAdapter()
         setActionAdapter()
         setAllProductAdapter()
-        clickLIkedButton()
+        clickLikedButton()
+        clickBasketButton()
+        clickProfilButton()
 
     }
     class MyEndlessScrollListener(
         layoutManager: LinearLayoutManager,
-        private val loadMoreCallback: () -> Unit // Callback for loading more items
+        private val loadMoreCallback: () -> Unit
     ) : EndlessRecyclerViewScrollListener(layoutManager) {
 
         override fun onLoadMore() {
-            // Call the callback to load more items
+
             loadMoreCallback()
         }
     }
@@ -103,6 +107,15 @@ class HomeFragment : Fragment() {
             },
             deleteProduct = {item , notify->
                 homeViewModel.removeLikedProduct(item , notify)
+            },
+            isProductBasket = {productId->
+                homeViewModel.isProductBasket(productId)
+            },
+            addProductBasket = {item,notify->
+                homeViewModel.addProductToBasket(item,notify)
+            },
+            deleteProductBasket = {item,notfy->
+                homeViewModel.deleteProductToBasket(item,notfy)
             }
         )
         val layoutManager = GridLayoutManager(context,2)
@@ -151,9 +164,19 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun clickLIkedButton(){
+    private fun clickLikedButton(){
         binding.btnLike.setOnClickListener(){
             findNavController().navigate(R.id.action_mainFragment_to_likedProductFragment)
+        }
+    }
+    private fun clickBasketButton(){
+        binding.imgBasket.setOnClickListener(){
+            findNavController().navigate(R.id.action_mainFragment_to_basketProductFragment)
+        }
+    }
+    private fun clickProfilButton(){
+        binding.btnProfilText.setOnClickListener() {
+            findNavController().navigate(R.id.action_mainFragment_to_profilFragment)
         }
     }
 
@@ -305,6 +328,15 @@ class HomeFragment : Fragment() {
             },
             deleteProduct = { item, notify ->
                 homeViewModel.removeLikedProduct(item , notify)
+            },
+            isProductBasket = {productId->
+                homeViewModel.isProductBasket(productId)
+            },
+            addProductBasket = {item,notify->
+                homeViewModel.addProductToBasket(item,notify)
+            },
+            deleteProductBasket = {item,notify->
+                homeViewModel.deleteProductToBasket(item,notify)
             }
         )
         binding.rcyRecomendations.adapter = recommendationAdapter
@@ -323,6 +355,15 @@ class HomeFragment : Fragment() {
             },
             deleteProduct = {item, notify->
                 homeViewModel.removeLikedProduct(item , notify)
+            },
+            isProductBasket = {productId->
+                homeViewModel.isProductBasket(productId)
+            },
+            addProductBasket = {item,notify->
+                homeViewModel.addProductToBasket(item,notify)
+            },
+            deleteProductBasket = {item , notify->
+                homeViewModel.deleteProductToBasket(item,notify)
             }
         )
         binding.rcyHistory.adapter = historyAdapter

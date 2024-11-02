@@ -154,7 +154,10 @@ class HomeViewModel @Inject constructor(
                     product.image,
                     product.name,
                     product.price,
-                    product.rating
+                    product.rating,
+                    product.companyName,
+                    product.companyLogo,
+                    product.stock
                 )
             )
             val isBasket = isProductBasket(product.id)

@@ -6,7 +6,7 @@
     <string name="Shop">Mağaza</string>
     <string name="Bonus">Bonus</string>
     <string name="Services">Xidmətlər</string>
-    <string name="Profil">Profil</string>
+    <string name="Profil">Kabinet</string>
     <string name="Hello">Salam, </string>
     <string name="search">Umico Market-də məhsul axtarışı</string>
     <string name="enterPhoneNumber">Əlaqə nömrənizi qeyd edin</string>
@@ -21,6 +21,7 @@
     <string name="More">Daha çox</string>
     <string name="Discounted">Premium ilə 10%-ə qədər</string>
     <string name="Action">Aksiya:</string>
+    <string name="BASKET">Səbət</string>
     <string name="Basket">SƏBƏTƏ</string>
     <string name="in_the_basket">SƏBƏTDƏ</string>
     <string name="recommendations">Sizə özəl tövsiyyələr</string>
@@ -32,5 +33,37 @@
     <string name="Actions">Tərəfdaşlardan aksiyalar və təkliflər</string>
     <string name="AllSales">Ən çox satılanlar</string>
     <string name="Select">Seçilmişlər</string>
-
+    <string name="Complete">Sifarişi tamamlamaq</string>
+    <string name="SelectAll">Hamısını seçmək</string>
+    <string name="OrderAmount">Sifarişin məbləği:</string>
+    <string name="Discount">Endirim:</string>
+    <string name="TotalPayment">Toplam ödəniş:</string>
+    <string name="Seller">Satıcı</string>
+    <string name="Price">Qiymət</string>
+    <string name="NoProducts">Seçilmişlər siyahısında məhsul yoxdur</string>
+    <string name="AddList">Məhsulları tez tapmaq üçün, onları seçilmişlər siyahısına əlavə edin. Bütün alış-verişləri Umico ilə başlayın</string>
+    <string name="NoCompany">Seçilmişlərdə şirkət yoxdur</string>
+    <string name="AddCompany">Bəyəndiyiniz şirkət və mağazalara rahat keçid almaq üçün onları  seçilmişlərə əlavə edin.İstənilən alış-verişləri Umico ilə başlayın.</string>
+    <string name="Earn">Umico ilə qazana biləcəyiniz</string>
+    <string name="bonusNumber">313 bonusları</string>
+    <string name="txtUmicoPremium">Umico Premium</string>
+    <string name="txtUmicoMarket">Umico Market</string>
+    <string name="txtUmicoMarketSecond">Sifarişlər tarixçəsi, müqayisələr, seçilmişlər və s. </string>
+    <string name="MyOrders">Mənim sifarişlərim</string>
+    <string name="UmicoBonus">Umico Bonus</string>
+    <string name="txtUmicoBonusSecond">Bonuslar tarixçəsi, QR kod skaneri və s.</string>
+    <string name="SmartBonus">Smart Bonus</string>
+    <string name="txtSmartBonusSecond">Bonus almaq üçün Kapital Bank kartını bağla</string>
+    <string name="Lottery">Lotereya</string>
+    <string name="txtLotterySecond">Şanslar, iştirak qaydaları</string>
+    <string name="Trendyol">Trendyol Crossborder</string>
+    <string name="txtTrendyolSecond">Bəyannamənin təsdiq olunması</string>
+    <string name="EDV">ƏDV Geri Al (Kapital Bank)</string>
+    <string name="txtEDVSecond">Skanner və kabinet</string>
+    <string name="Parametrler">Parametrlər</string>
+    <string name="Location">Şəhərdəki mağazalar və şirkətlər</string>
+    <string name="Language">Dil</string>
+    <string name="Help">Kömək</string>
+    <string name="Support">Dəstək xidməti</string>
+    <string name="Exit">Çıxış</string>
 </resources>

@@ -6,11 +6,14 @@ data class Product(
     val id:String,
     val credit:String,
     val category:String,
-    val discountPrice:String,
+    val discountPrice:Double,
     val discountRate:String,
     val image:String,
     val name:String,
-    val price:String,
+    val price:Double,
     val rating: String,
-    var countDownTimer: CountDownTimer?=null
+    val companyName:String,
+    val companyLogo:String,
+    var countDownTimer: CountDownTimer?=null,
+    val stock:Long
 )

@@ -16,16 +16,48 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="10dp"
+        android:visibility="gone"
+
+        />
+
+    <ImageView
+        android:id="@+id/imgLike"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/favorite_fill0_wght400_grad0_opsz24_soft_gray"
+
+        />
+    <TextView
+        android:id="@+id/txtNoProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLike"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:text="@string/NoProducts"
         />
 
     <TextView
-        android:id="@+id/emptyStateView"
+        android:id="@+id/txtAddList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No liked products available"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:textSize="16sp"/>
+        app:layout_constraintLeft_toLeftOf="@id/txtNoProduct"
+        app:layout_constraintRight_toRightOf="@id/txtNoProduct"
+        app:layout_constraintTop_toBottomOf="@id/txtNoProduct"
+        android:text="@string/AddList"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:padding="20dp"
+        />
 
 
 

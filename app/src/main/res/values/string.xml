@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Umico</string>
-
-
     <string name="Home">Home</string>
     <string name="Shop">Shop</string>
     <string name="Bonus">Bonus</string>
@@ -21,9 +19,9 @@
     <string name="More">More</string>
     <string name="Discounted">Up to 10% with premium</string>
     <string name="Action">Action:</string>
+    <string name="BASKET">Basket</string>
     <string name="Basket">BASKET</string>
     <string name="in_the_basket">IN THE BASKET</string>
-
     <string name="recommendations">Special recommendations for you</string>
     <string name="All">ALL</string>
     <string name="Dowry">Let the houses be filled with dowry!</string>
@@ -33,4 +31,37 @@
     <string name="Actions">Promotions and offers from partners</string>
     <string name="AllSales">best sellers</string>
     <string name="Select">The chosen ones</string>
+    <string name="Complete">Complete the order</string>
+    <string name="SelectAll">Select all</string>
+    <string name="OrderAmount">Order amount:</string>
+    <string name="Discount">Discount:</string>
+    <string name="TotalPayment">Total payment:</string>
+    <string name="Seller">Seller</string>
+    <string name="Price">Price</string>
+    <string name="NoProducts">There are no products in your favorites list</string>
+    <string name="AddList">To find products quickly, add them to your favorites list. Start all shopping with Umico</string>
+    <string name="NoCompany">There is no company in the chosen ones</string>
+    <string name="AddCompany">Add your favorite companies and stores to your favorites for convenient access. Start any shopping with Umico.</string>
+    <string name="Earn">That you can earn with Umico</string>
+    <string name="bonusNumber">313 bonuses</string>
+    <string name="txtUmicoPremium">Umico Premium</string>
+    <string name="txtUmicoMarket">Umico Market</string>
+    <string name="txtUmicoMarketSecond">Order history, comparisons, favorites, etc.</string>
+    <string name="MyOrders">My orders</string>
+    <string name="UmicoBonus">Umico Bonus</string>
+    <string name="txtUmicoBonusSecond">Bonus history, QR code scanner, etc.</string>
+    <string name="SmartBonus">Smart Bonus</string>
+    <string name="txtSmartBonusSecond">Close the Kapital Bank card to receive a bonus</string>
+    <string name="Lottery">Lottery</string>
+    <string name="txtLotterySecond">Odds, rules of participation</string>
+    <string name="Trendyol">Trendyol Crossborder</string>
+    <string name="txtTrendyolSecond">Confirmation of declaration</string>
+    <string name="EDV">ƏDV Refund (Kapital Bank)</string>
+    <string name="txtEDVSecond">Scanner and cabinet</string>
+    <string name="Parametrler">Settings</string>
+    <string name="Location">Shops and companies in the city</string>
+    <string name="Language">Language</string>
+    <string name="Help">Help</string>
+    <string name="Support">Support service</string>
+    <string name="Exit">Exit</string>
 </resources>

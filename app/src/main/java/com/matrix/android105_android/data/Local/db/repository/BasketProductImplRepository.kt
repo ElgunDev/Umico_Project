@@ -25,4 +25,8 @@ class BasketProductImplRepository @Inject constructor(
         return  basketProductDao.isProductBasket(productId)
     }
 
+    override suspend fun updateBasketProductQuantity(productId: String, newQuantity: Int) {
+        basketProductDao.updateQuantity(productId,newQuantity)
+    }
+
 }

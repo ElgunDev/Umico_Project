@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#818181</color>
+    <color name="softGray">#D6DAE7</color>
     <color name="lightPurple">#E9E3FF</color>
     <color name="Purple">#A55FD0</color>
     <color name="lightGray">#E3E3E3</color>
@@ -12,4 +13,6 @@
     <color name="DarkBronze">#A26528</color>
     <color name="Yellow">#FDD640</color>
     <color name="green">#17C37A</color>
+    <color name="orange">#EEAA51</color>
+    <color name="ExtraSoftGray">#F3F3F3</color>
 </resources>

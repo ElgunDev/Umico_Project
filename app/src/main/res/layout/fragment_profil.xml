@@ -4,18 +4,991 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.Profil.ProfilFragment">
+    tools:context=".presentation.ui.Profil.ProfilFragment"
+    android:background="@color/ExtraSoftGray">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutTop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textAlignment="center"
-        android:textSize="60sp"
-        android:text="@string/Profil" />
+        android:background="@color/white"
+       >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+   >
+        <TextView
+            android:id="@+id/txtProfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Profil"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="20dp"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/btnLike"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+
+            android:background="@color/cardview_shadow_end_color"
+            app:layout_constraintLeft_toLeftOf="@id/gdLineCenter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/favorite_fill0_wght400_grad0_opsz24" />
+
+        <ImageButton
+            android:id="@+id/btnNotice"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:background="@color/cardview_shadow_end_color"
+            app:layout_constraintLeft_toRightOf="@id/btnLike"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/notifications_24dp_e8eaed_fill0_wght400_grad0_opsz24" />
+
+        <ImageButton
+            android:id="@+id/imgBasket"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:background="@color/cardview_shadow_end_color"
+            app:layout_constraintLeft_toRightOf="@id/btnNotice"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/shopping_cart_24dp_e8eaed_fill0_wght400_grad0_opsz24_gray" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gdLineCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutTop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                android:id="@+id/imgAdverisage"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:src="@drawable/long_ad_second"
+                android:scaleType="fitXY"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnProfilText"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/bg_profil_text"
+                    android:textColor="@color/Purple"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtProfilSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/btnProfilText"
+                    app:layout_constraintTop_toTopOf="@id/btnProfilText"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Profil"
+                    android:textColor="@color/gray"
+                    />
+                <TextView
+                    android:id="@+id/txtUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtProfilSecond"
+                    app:layout_constraintTop_toBottomOf="@id/txtProfilSecond"
+                    app:layout_constraintBottom_toBottomOf="@id/btnProfilText"
+                    android:textSize="17sp"
+                    android:layout_marginBottom="10dp"
+                    />
+                <ImageButton
+                    android:id="@+id/btnTransition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btnProfilText"
+                    app:layout_constraintBottom_toBottomOf="@id/btnProfilText"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageUmicoLogo"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/umico_smile_logo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+                <TextView
+                    android:id="@+id/txtEarn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/imageUmicoLogo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Earn"
+                    android:textColor="@color/gray"
+                    />
+
+                <TextView
+                    android:id="@+id/txtBonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtEarn"
+                    app:layout_constraintTop_toBottomOf="@id/txtEarn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@string/bonusNumber"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    />
+                <ImageButton
+                    android:id="@+id/btnTransitionSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/txtEarn"
+                    app:layout_constraintBottom_toBottomOf="@id/txtBonus"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <TextView
+                    android:id="@+id/txtServices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/Services"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgServices"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+
+                            android:src="@drawable/image_5_shop"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txtUmicoPremium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewPremium"
+                    app:layout_constraintTop_toTopOf="@id/cardViewPremium"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewPremium"
+                    android:text="@string/txtUmicoPremium"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    />
+                <ImageButton
+                    android:id="@+id/btnTransitionThird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewPremium"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewPremium"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewUmicoMarket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgUmicoMarket"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+
+                            android:src="@drawable/image_umico_market"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txtUmicoMarket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewUmicoMarket"
+                    app:layout_constraintTop_toTopOf="@id/cardViewUmicoMarket"
+                    app:layout_constraintBottom_toTopOf="@id/txtUmicoMarketSecond"
+                   android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:text="@string/txtUmicoMarket"
+                    android:layout_marginLeft="20dp"
+                    />
+                <TextView
+                    android:id="@+id/txtUmicoMarketSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtUmicoMarket"
+                    app:layout_constraintTop_toBottomOf="@id/txtUmicoMarket"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewUmicoMarket"
+                    android:text="@string/txtUmicoMarketSecond"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btnTransitionFourth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewUmicoMarket"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewUmicoMarket"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnOrders"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtUmicoMarketSecond"
+                    app:layout_constraintTop_toBottomOf="@id/txtUmicoMarketSecond"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/MyOrders"
+                    android:drawableLeft="@drawable/shopping_bag_24dp_e8eaed_fill0_wght400_grad0_opsz24_gray"
+                    android:textAlignment="textStart"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/baseline_chevron_right_24"
+                    android:background="@color/ExtraSoftGray"
+                    android:paddingLeft="10dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewBonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgBonus"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/image_bonus"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txtUmicoBonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewBonus"
+                    app:layout_constraintTop_toTopOf="@id/cardViewBonus"
+                    app:layout_constraintBottom_toTopOf="@id/txtUmicoBonusSecond"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:text="@string/UmicoBonus"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/txtUmicoBonusSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtUmicoBonus"
+                    app:layout_constraintTop_toBottomOf="@id/txtUmicoBonus"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewBonus"
+                    android:text="@string/txtUmicoBonusSecond"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/btnTransitionfifth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewBonus"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewBonus"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewSmartBonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgSmartBonus"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/image_smart_bonus"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txtSmartBonus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewSmartBonus"
+                    app:layout_constraintTop_toTopOf="@id/cardViewSmartBonus"
+                    app:layout_constraintBottom_toTopOf="@id/txtSmartBonusSecond"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:text="@string/SmartBonus"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/txtSmartBonusSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtSmartBonus"
+                    app:layout_constraintTop_toBottomOf="@id/txtSmartBonus"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewSmartBonus"
+                    android:text="@string/txtSmartBonusSecond"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/btnTransitionsixty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewSmartBonus"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewSmartBonus"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewLottery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgLottery"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/image_lottery"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/txtLottery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewLottery"
+                    app:layout_constraintTop_toTopOf="@id/cardViewLottery"
+                    app:layout_constraintBottom_toTopOf="@id/txtLotterySecond"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:text="@string/Lottery"
+                    android:layout_marginLeft="20dp"
+                    />
+
+                <TextView
+                    android:id="@+id/txtLotterySecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/txtLottery"
+                    app:layout_constraintTop_toBottomOf="@id/txtLottery"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewLottery"
+                    android:text="@string/txtLotterySecond"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/btnTransitionseventy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewLottery"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewLottery"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewTrendyol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgTrendyol"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/image_trendyol"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/txtTrendyol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Trendyol"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtTrendyolSecond"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewTrendyol"
+                    app:layout_constraintTop_toTopOf="@id/cardViewTrendyol" />
+
+
+                <TextView
+                    android:id="@+id/txtTrendyolSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtTrendyolSecond"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewTrendyol"
+                    app:layout_constraintLeft_toLeftOf="@id/txtTrendyol"
+                    app:layout_constraintTop_toBottomOf="@id/txtTrendyol" />
+
+                <ImageButton
+                    android:id="@+id/btnTransitioneight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewTrendyol"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewTrendyol"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewEDV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imgEDV"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/images_edv"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/txtEDV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/EDV"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtEDVSecond"
+                    app:layout_constraintLeft_toRightOf="@id/cardViewEDV"
+                    app:layout_constraintTop_toTopOf="@id/cardViewEDV" />
+
+                <TextView
+                    android:id="@+id/txtEDVSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txtEDVSecond"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewEDV"
+                    app:layout_constraintLeft_toLeftOf="@id/txtEDV"
+                    app:layout_constraintTop_toBottomOf="@id/txtEDV" />
+
+                <ImageButton
+                    android:id="@+id/btnTransitionnine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cardViewEDV"
+                    app:layout_constraintBottom_toBottomOf="@id/cardViewEDV"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <TextView
+                    android:id="@+id/txtParametr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/Parametrler"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+            <ImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/location_on_24dp_e8eaed_fill0_wght400_grad0_opsz24"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/cardview_shadow_end_color"
+                />
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Location"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtLocationSecond"
+                    app:layout_constraintLeft_toRightOf="@id/imgLocation"
+                    app:layout_constraintTop_toTopOf="@id/imgLocation" />
+
+                <TextView
+                    android:id="@+id/txtLocationSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bakı"
+
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLocation"
+                    app:layout_constraintLeft_toLeftOf="@id/txtLocation"
+                    app:layout_constraintTop_toBottomOf="@id/txtLocation" />
+
+                <ImageButton
+                    android:id="@+id/btnTransitionTen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgLocation"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLocation"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+                <ImageView
+                    android:id="@+id/imgLanguage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/language_24dp_e8eaed_fill0_wght400_grad0_opsz24"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+                <TextView
+                    android:id="@+id/txtLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Language"
+                    android:textColor="@color/gray"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@id/txtLanguageSecond"
+                    app:layout_constraintLeft_toRightOf="@id/imgLanguage"
+                    app:layout_constraintTop_toTopOf="@id/imgLanguage" />
+
+                <TextView
+                    android:id="@+id/txtLanguageSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Azərbaycan"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLanguage"
+                    app:layout_constraintLeft_toLeftOf="@id/txtLanguage"
+                    app:layout_constraintTop_toBottomOf="@id/txtLanguage" />
+
+                <ImageButton
+                    android:id="@+id/btnTransitionEleven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgLanguage"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLanguage"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+                <TextView
+                    android:id="@+id/txtHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/Help"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/imgHelp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/info_24dp_e8eaed_fill0_wght400_grad0_opsz24"
+                    />
+
+                <TextView
+                    android:id="@+id/txtSupport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/imgHelp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgHelp"
+                    app:layout_constraintLeft_toRightOf="@id/imgHelp"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Support"
+
+                    />
+                <ImageButton
+                    android:id="@+id/btnTransitionTwelve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgHelp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgHelp"
+                    android:src="@drawable/baseline_chevron_right_24"
+                    android:background="@color/cardview_shadow_end_color"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="20dp"
+                android:background="@color/white"
+                >
+
+                <ImageView
+                    android:id="@+id/imgExit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/logout_24dp_e8eaed_fill0_wght400_grad0_opsz24"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/imgExit"
+                    app:layout_constraintBottom_toBottomOf="@id/imgExit"
+                    app:layout_constraintLeft_toRightOf="@id/imgExit"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/Exit"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
