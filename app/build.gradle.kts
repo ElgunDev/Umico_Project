@@ -96,6 +96,7 @@ dependencies {
     implementation ("androidx.room:room-ktx:2.5.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
+    implementation ("com.google.firebase:firebase-storage-ktx:20.0.1")
 
 
 

@@ -19,6 +19,7 @@ class ProfilViewModel @Inject constructor(
         get() = _userName
 
 
+
     fun fetchUserName(){
         val uId =firebaseAuth.currentUser?.uid
         if (uId!=null){

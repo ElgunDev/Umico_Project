@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.matrix.android105_android.data.Local.db.entity.BasketProductEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BasketProductDao {
@@ -20,7 +21,7 @@ interface BasketProductDao {
     suspend fun deleteProduct(productId:String)
 
     @Query("SELECT EXISTS(SELECT 1 FROM basket_product WHERE id=:productId)")
-    suspend fun isProductBasket(productId: String):Boolean
+    fun isProductBasket(productId: String): Flow<Boolean>
 
     @Query("UPDATE BASKET_PRODUCT SET quantity=:newQuantity WHERE id=:productId")
     suspend fun updateQuantity(productId: String , newQuantity:Int)

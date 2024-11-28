@@ -14,14 +14,16 @@ import com.matrix.android105_android.databinding.ItemProductsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 
 class AllProductAdapter(
-    private val isProductLiked:suspend (String)->Boolean,
     private val addProduct:(product:Product , notify:()->Unit)->Unit,
     private val deleteProduct:(product:Product , notify:()->Unit)->Unit,
-    private val isProductBasket:suspend (String)->Boolean,
+    private val homeViewModel: HomeViewModel,
     private val addProductBasket:(product:Product , notify:()->Unit)->Unit,
-    private val deleteProductBasket:(product:Product , notify:()->Unit)->Unit
+    private val deleteProductBasket:(product:Product , notify:()->Unit)->Unit,
 ):RecyclerView.Adapter<AllProductAdapter.AllProductViewHolder>() {
 
     private val diffCallBack = object :DiffUtil.ItemCallback<Product>(){
@@ -60,6 +62,7 @@ class AllProductAdapter(
             binding.txtNameProduct.text = product.name
             binding.price.text = product.price.toString()
             binding.txtAction.visibility = View.GONE
+            binding.ratingBar.rating = product.rating.toFloat()
             Glide.with(binding.root.context)
                 .load(product.image)
                 .into(binding.imgProduct)
@@ -68,9 +71,14 @@ class AllProductAdapter(
                 binding.price.visibility = View.GONE
             }
 
+            val isBasket = homeViewModel.basketStatus.value?.get(product.id) ?: false
+            updateBasketButton(isBasket)
+
+            val isLiked = homeViewModel.likedStatus.value?.get(product.id) ?: false
+            updateLikeButton(isLiked)
+
             binding.imgLike.setOnClickListener(){
                 CoroutineScope(Dispatchers.Main).launch {
-                    val isLiked = isProductLiked(product.id)
                     if (!isLiked) {
                         addProduct(product){
                             notifyDataSetChanged()
@@ -88,28 +96,22 @@ class AllProductAdapter(
             }
             binding.btnAddBasket.setOnClickListener(){
                 CoroutineScope(Dispatchers.Main).launch {
-                    val isBsket = isProductBasket(product.id)
-                    if (!isBsket) {
+                    if (!isBasket) {
                         addProductBasket(product) {
                             notifyDataSetChanged()
                         }
-                        updateBasketButton(isBsket)
+                        updateBasketButton(isBasket)
                     }
                     else{
                         deleteProductBasket(product){
                             notifyDataSetChanged()
                         }
                     }
-                    updateBasketButton(!isBsket)
+                    updateBasketButton(!isBasket)
                 }
             }
 
-            CoroutineScope(Dispatchers.Main).launch {
-                val isLiked = isProductLiked(product.id)
-                updateLikeButton(isLiked)
-                val isBasket  = isProductBasket(product.id)
-                updateBasketButton(isBasket)
-            }
+
         }
 
         private fun updateLikeButton(isLiked:Boolean){

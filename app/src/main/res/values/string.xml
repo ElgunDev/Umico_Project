@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Umico</string>
     <string name="Home">Home</string>
+    <string name="english">English</string>
+    <string name="azerbaijan">azerbaijan</string>
+    <string name="select_language">Select Language</string>
     <string name="Shop">Shop</string>
     <string name="Bonus">Bonus</string>
     <string name="Services">Services</string>
@@ -64,4 +67,36 @@
     <string name="Help">Help</string>
     <string name="Support">Support service</string>
     <string name="Exit">Exit</string>
+    <string name="EmpetyBasket">The basket is empty</string>
+    <string name="Catalog">Select products from the catalog</string>
+    <string name="chosen">Chosen</string>
+    <string name="notifications">Notifications</string>
+    <string name="Discount_second">Discount</string>
+    <string name="Brends">Popular brands</string>
+    <string name="PopularSeller">Popular sellers</string>
+    <string name="İnnovation">innovations</string>
+    <string name="startShopping">Start shopping by browsing the product catalog to find the products you need</string>
+    <string name="ProductCatalog">Product catalog</string>
+    <string name="Add">Add</string>
+    <string name="PersonalInformation">Personal information</string>
+    <string name="PersonalSettings">Personal Settings</string>
+    <string name="Myİnterest">My İnterest</string>
+    <string name="MySubscriptions">My Subscriptions</string>
+    <string name="name">Name</string>
+    <string name="surName">Surname</string>
+    <string name="dateOfBirth">Date of birth</string>
+    <string name="Gender">Gender</string>
+    <string name="Phone">Phone</string>
+    <string name="email">E-mail</string>
+    <string name="Fin">FIN code</string>
+    <string name="Save">Save</string>
+    <string name="HistoryText">History</string>
+    <string name="Pay">Pay</string>
+    <string name="Transfer">Transfer</string>
+    <string name="CouldWon">You could have won</string>
+    <string name="UpWallet">Power up your wallet</string>
+    <string name="GetBonus">Get up to 12% bonus on Birbank Umico card</string>
+    <string name="OrderCard">Order a card →</string>
+    <string name="SearchSecond">Search</string>
+
 </resources>

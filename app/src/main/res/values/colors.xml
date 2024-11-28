@@ -14,5 +14,8 @@
     <color name="Yellow">#FDD640</color>
     <color name="green">#17C37A</color>
     <color name="orange">#EEAA51</color>
+    <color name="softPurple">#F8F8F8</color>
     <color name="ExtraSoftGray">#F3F3F3</color>
+    <color name="SoftPink">#F9EBFC</color>
+    <color name="SoftBlue">#E5EAF4</color>
 </resources>

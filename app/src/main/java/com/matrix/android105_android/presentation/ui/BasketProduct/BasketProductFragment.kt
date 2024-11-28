@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentBasketProductBinding
+import com.matrix.android105_android.presentation.ui.Home.HistoryAdapter
 import com.matrix.android105_android.presentation.ui.Home.HomeViewModel
+import com.matrix.android105_android.presentation.ui.Home.RecommendationAdapter
+import com.matrix.android105_android.presentation.ui.Shop.DiscountAdapter
+import com.matrix.android105_android.presentation.ui.Shop.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,8 +23,12 @@ class BasketProductFragment : Fragment() {
 
     private lateinit var binding:FragmentBasketProductBinding
     private lateinit var adapter: BasketProductAdapter
-    private val homeViewModel :HomeViewModel by viewModels()
+    private lateinit var historyAdapter: HistoryAdapter
+    private lateinit var recommendationsAdapter: RecommendationAdapter
+    private lateinit var discountAdapter: DiscountAdapter
+    private val homeViewModel :HomeViewModel by activityViewModels()
     private val basketViewModel:BasketViewModel by viewModels()
+    private val shopViewModel :ShopViewModel by  viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +46,13 @@ class BasketProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpAdapter()
         clickBackButton()
-
+        clickMore()
+        fetchHistoryAdapter()
+        fetchDiscountAdapter()
+        fetchRecommendationAdapter()
+        homeViewModel.fetchHistoryProducts()
+        homeViewModel.fetchRecommendationProducts()
+        shopViewModel.fetchProducts()
     }
 
     private fun setUpAdapter(){
@@ -55,8 +70,19 @@ class BasketProductFragment : Fragment() {
         binding.rcyProducts.adapter = adapter
         binding.rcyProducts.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.VERTICAL , false)
         homeViewModel.basketProduct.observe(viewLifecycleOwner){
-            adapter.submitList(it)
+            if (it.isNullOrEmpty()){
+                binding.scrollFirst.visibility =View.GONE
+                binding.layoutBottom.visibility =View.GONE
+                binding.scrollSecond.visibility =View.VISIBLE
+            }
+            else {
+                binding.scrollFirst.visibility =View.VISIBLE
+                binding.layoutBottom.visibility =View.VISIBLE
+                binding.scrollSecond.visibility =View.GONE
+                adapter.submitList(it)
+            }
         }
+
         adapter.updateFragmentTotalPrice ={
         updateTotalPrice()
         }
@@ -88,10 +114,91 @@ class BasketProductFragment : Fragment() {
         }
     }
 
+    private fun fetchHistoryAdapter(){
+        historyAdapter = HistoryAdapter(
+            addProduct = {item , notify ->
+                homeViewModel.addProductToLikes(item , notify)
+            },
+            deleteProduct = {item, notify->
+                homeViewModel.removeLikedProduct(item , notify)
+            },
+            homeViewModel = homeViewModel,
+            addProductBasket = {item,notify->
+                homeViewModel.addProductToBasket(item,notify)
+            },
+            deleteProductBasket = {item , notify->
+                homeViewModel.deleteProductToBasket(item,notify)
+            },
+            onClick = {
+               findNavController().navigate(R.id.action_basketProductFragment_to_moreProductFragment)
+            }
+        )
+        binding.rcyHistory.adapter= historyAdapter
+        binding.rcyHistory.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.HORIZONTAL , false)
+        homeViewModel.historyProduct.observe(viewLifecycleOwner){
+            historyAdapter.submitList(it)
+        }
+    }
 
+    private fun fetchRecommendationAdapter(){
+        recommendationsAdapter = RecommendationAdapter(
 
+            addProduct = {item , notify ->
+                homeViewModel.addProductToLikes(item , notify)
+            },
+            deleteProduct = {item, notify->
+                homeViewModel.removeLikedProduct(item , notify)
+            },
+           homeViewModel=homeViewModel,
+            addProductBasket = {item,notify->
+                homeViewModel.addProductToBasket(item,notify)
+            },
+            deleteProductBasket = {item , notify->
+                homeViewModel.deleteProductToBasket(item,notify)
+            },
+            onClick = {
+                findNavController().navigate(R.id.action_basketProductFragment_to_moreProductFragment)
+            }
+        )
+        binding.rcyRecommendation.adapter = recommendationsAdapter
+        binding.rcyRecommendation.layoutManager =LinearLayoutManager(requireContext() ,LinearLayoutManager.HORIZONTAL , false)
+        homeViewModel.recommendationProducts.observe(viewLifecycleOwner){
+            recommendationsAdapter.submitList(it)
+        }
 
+    }
 
+    private fun fetchDiscountAdapter(){
+        discountAdapter = DiscountAdapter(
+
+            addProduct = {item , notify ->
+                homeViewModel.addProductToLikes(item , notify)
+            },
+            deleteProduct = {item, notify->
+                homeViewModel.removeLikedProduct(item , notify)
+            },
+
+            addProductBasket = {item,notify->
+                homeViewModel.addProductToBasket(item,notify)
+            },
+            homeViewModel = homeViewModel,
+            deleteProductBasket = {item , notify->
+                homeViewModel.deleteProductToBasket(item,notify)
+            }
+        )
+        binding.rcyDiscount.adapter = discountAdapter
+        binding.rcyDiscount.layoutManager =LinearLayoutManager(requireContext() ,LinearLayoutManager.HORIZONTAL , false)
+        shopViewModel.products.observe(viewLifecycleOwner){
+            discountAdapter.submitList(it)
+        }
+
+    }
+
+    private fun clickMore(){
+        binding.more.setOnClickListener(){
+            findNavController().navigate(R.id.action_basketProductFragment_to_moreProductFragment)
+        }
+    }
 
 
 }

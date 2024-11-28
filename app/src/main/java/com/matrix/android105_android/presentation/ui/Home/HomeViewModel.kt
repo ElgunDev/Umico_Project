@@ -29,6 +29,9 @@ import kotlinx.coroutines.launch
 import okhttp3.internal.notify
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -43,8 +46,8 @@ class HomeViewModel @Inject constructor(
     private val likedProductImplRepository: ILikedProductRepository,
     private val basketProductImplRepository: IBasketProductRepository
 ):ViewModel() {
-    private val _userName = MutableLiveData<String>()
-    val username:MutableLiveData<String>
+    private val _userName = MutableLiveData<String?>()
+    val username:MutableLiveData<String?>
         get() = _userName
 
     private val _adImages = MutableLiveData<List<Advertisement>>()
@@ -94,17 +97,42 @@ class HomeViewModel @Inject constructor(
 
     private val _productsLiveData = MutableLiveData<List<Product>>()
     val productsLiveData: LiveData<List<Product>> get() = _productsLiveData
+
+
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
     private val allProducts = mutableListOf<Product>()
+
+    private val _basketStatus = MutableLiveData<Map<String, Boolean>>()
+    val basketStatus: LiveData<Map<String, Boolean>>
+        get() = _basketStatus
+
+    private val _likedStatus = MutableLiveData<Map<String, Boolean>>()
+    val likedStatus: LiveData<Map<String, Boolean>>
+        get() = _likedStatus
+
 
     val likedProduct: LiveData<List<LikedProductEntity>> = likedProductImplRepository.getLikedProduct()
 
     val basketProduct:LiveData<List<BasketProductEntity>> = basketProductImplRepository.getBasketProduct()
 
+
+
     private lateinit var countDownTimer: CountDownTimer
     private val totalTimer = (23*60*60*1000) + (59*60*1000) + (59*1000)
 
+
+    fun updateBasketStatus(productId: String, isBasket: Boolean) {
+        _basketStatus.value = _basketStatus.value.orEmpty().toMutableMap().apply {
+            put(productId, isBasket)
+        }
+    }
+
+    fun updateLikedStatus(productId: String, isLiked: Boolean) {
+        _likedStatus.value = _likedStatus.value.orEmpty().toMutableMap().apply {
+            put(productId, isLiked)
+        }
+    }
 
     fun addProductToLikes(product: Product,notify: () -> Unit){
         viewModelScope.launch {
@@ -123,6 +151,7 @@ class HomeViewModel @Inject constructor(
             )
             val isLiked =  isProductLiked(product.id)
            if (isLiked){
+               updateLikedStatus(product.id,true)
                notify()
            }
         }
@@ -133,6 +162,7 @@ class HomeViewModel @Inject constructor(
             likedProductImplRepository.deleteLikedProduct(product.id)
             val isLiked = isProductLiked(product.id)
             if (!isLiked){
+                updateLikedStatus(product.id , false)
                 notify
             }
         }
@@ -160,8 +190,9 @@ class HomeViewModel @Inject constructor(
                     product.stock
                 )
             )
-            val isBasket = isProductBasket(product.id)
+            val isBasket = isProductBasket(product.id).first()
             if (isBasket){
+                updateBasketStatus(product.id , true)
                 notify()
             }
         }
@@ -169,14 +200,15 @@ class HomeViewModel @Inject constructor(
     fun deleteProductToBasket(product: Product , notify: () -> Unit){
         viewModelScope.launch {
             basketProductImplRepository.deleteBasketProduct(product.id)
-            val isBasket = isProductBasket(product.id)
+            val isBasket = isProductBasket(product.id).first()
             if (!isBasket){
-                notify
+                updateBasketStatus(product.id , false)
+                notify()
             }
         }
     }
 
-    suspend fun isProductBasket(productId: String):Boolean{
+    suspend fun isProductBasket(productId: String):Flow<Boolean>{
         return basketProductImplRepository.isProductBasket(productId)
     }
 
@@ -231,18 +263,20 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchUserName(){
-        val uid = firebaseAuth.currentUser?.uid
-                if(uid !=null){
-                    viewModelScope.launch {
-                        val result = getUserNameUseCase.invoke(uid)
-                        result.onSuccess {name->
-                            _userName.value = name
-                        }
-                            .onFailure {exception->
-                                _userName.value = "Error : ${exception.message}"
-                            }
+        viewModelScope.launch {
+            val uid = firebaseAuth.currentUser?.uid
+            if (uid != null) {
+                viewModelScope.launch {
+                    val result = getUserNameUseCase.invoke(uid)
+                    result.onSuccess { name ->
+                        _userName.value = name
                     }
+                        .onFailure { exception ->
+                            _userName.value = "Error : ${exception.message}"
+                        }
                 }
+            }
+        }
     }
     fun fetchAdImages(){
         viewModelScope.launch {
