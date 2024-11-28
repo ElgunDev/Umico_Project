@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -17,14 +18,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class ProductAdapter(
-    private val isProductLiked: suspend (String) -> Boolean, // Higher-order function to check like status
+
     private val addProduct:(product: Product , notify:()->Unit)->Unit,
     private val deleteProduct:(product: Product,notify:()->Unit)->Unit,
-    private val isProductBasket:suspend (String) -> Boolean,
+    private val homeViewModel: HomeViewModel,
     private val addProductBasket:(product: Product , notify:()->Unit)->Unit,
     private val deleteProductBasket:(product: Product,notify:()->Unit)->Unit,
+    private val onClick : ()->Unit
 ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val viewTypeProduct = 1
     private val viewTypeImageButton = 2
@@ -107,6 +111,12 @@ class ProductAdapter(
                  binding.price.visibility = View.GONE
              }
 
+             val isBasket = homeViewModel.basketStatus.value?.get(product.id) ?: false
+             updateBasketButton(isBasket)
+
+             val isLiked = homeViewModel.likedStatus.value?.get(product.id)?:false
+             updateLikeButton(isLiked)
+
 
 
             if (product.countDownTimer == null){
@@ -128,7 +138,7 @@ class ProductAdapter(
 
              binding.imgLike.setOnClickListener(){
                  CoroutineScope(Dispatchers.Main).launch {
-                     val isLiked = isProductLiked(product.id)
+
                      if (!isLiked){
                          addProduct(product){
                              notifyDataSetChanged()
@@ -146,7 +156,6 @@ class ProductAdapter(
 
              binding.btnAddBasket.setOnClickListener(){
                  CoroutineScope(Dispatchers.Main).launch {
-                     val isBasket = isProductBasket(product.id)
                      if (!isBasket){
                          addProductBasket(product){
                              notifyDataSetChanged()
@@ -161,15 +170,6 @@ class ProductAdapter(
 
                      }
                  }
-             }
-
-
-
-             CoroutineScope(Dispatchers.Main).launch {
-                 val isLiked = isProductLiked(product.id)
-                 updateLikeButton(isLiked)
-                 val isBasket = isProductBasket(product.id)
-                 updateBasketButton(isBasket)
              }
 
 
@@ -213,7 +213,9 @@ class ProductAdapter(
          }
     inner class ImageButtonViewHolder(private val binding: ItemImageButtonBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-
+             binding.imgButton.setOnClickListener(){
+                 onClick.invoke()
+             }
         }
     }
 

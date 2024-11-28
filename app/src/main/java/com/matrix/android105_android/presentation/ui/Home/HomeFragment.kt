@@ -6,16 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.matrix.android105_android.R
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.EndlessRecyclerViewScrollListener
 import com.matrix.android105_android.databinding.FragmentHomeBinding
+import com.matrix.android105_android.presentation.ui.ProfilDetailed.ProfilDetailedViewModel
 import com.matrix.android105_android.presentation.ui.main.MainFragment
+import com.matrix.android105_android.presentation.ui.main.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -35,7 +40,10 @@ class HomeFragment : Fragment() {
     private lateinit var allProductAdapter: AllProductAdapter
     private lateinit var endlessScrollListener: MyEndlessScrollListener
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
+    private val profilDetailedViewModel:ProfilDetailedViewModel by viewModels()
+
+//    private val sharedViewModel:SharedViewModel by activityViewModels()
 
 
 
@@ -68,7 +76,9 @@ class HomeFragment : Fragment() {
         homeViewModel.fetchAdThirdImages()
         homeViewModel.fetchActionImages()
         homeViewModel.loadProduct(false)
+        profilDetailedViewModel.loadProfileImage()
         observeUserName()
+        observeProfilImage()
         setAdAdapter()
         setShopAdapter()
         observeTimer()
@@ -84,6 +94,11 @@ class HomeFragment : Fragment() {
         clickLikedButton()
         clickBasketButton()
         clickProfilButton()
+        observeStatus()
+        clickMore()
+
+
+//        observe()
 
     }
     class MyEndlessScrollListener(
@@ -99,18 +114,13 @@ class HomeFragment : Fragment() {
 
     private fun setAllProductAdapter(){
         allProductAdapter = AllProductAdapter(
-            isProductLiked = {productId->
-                homeViewModel.isProductLiked(productId)
-            },
             addProduct = {item , notify->
                 homeViewModel.addProductToLikes(item , notify)
             },
             deleteProduct = {item , notify->
                 homeViewModel.removeLikedProduct(item , notify)
             },
-            isProductBasket = {productId->
-                homeViewModel.isProductBasket(productId)
-            },
+            homeViewModel=homeViewModel,
             addProductBasket = {item,notify->
                 homeViewModel.addProductToBasket(item,notify)
             },
@@ -176,6 +186,9 @@ class HomeFragment : Fragment() {
     }
     private fun clickProfilButton(){
         binding.btnProfilText.setOnClickListener() {
+            findNavController().navigate(R.id.action_mainFragment_to_profilFragment)
+        }
+        binding.SelectedImage.setOnClickListener(){
             findNavController().navigate(R.id.action_mainFragment_to_profilFragment)
         }
     }
@@ -289,9 +302,6 @@ class HomeFragment : Fragment() {
     }
     private fun setProductAdapter(){
       productAdapter = ProductAdapter(
-          isProductLiked = {productId->
-              homeViewModel.isProductLiked(productId)
-          },
           addProduct = {item , notify->
               homeViewModel.addProductToLikes(item, notify)
 
@@ -299,14 +309,16 @@ class HomeFragment : Fragment() {
           , deleteProduct = {item , notify->
               homeViewModel.removeLikedProduct(item , notify)
           },
-          isProductBasket = {productId->
-              homeViewModel.isProductBasket(productId)
-          },
+          homeViewModel = homeViewModel
+          ,
           addProductBasket = {item,notify->
               homeViewModel.addProductToBasket(item,notify)
           },
           deleteProductBasket = {item , notify->
               homeViewModel.deleteProductToBasket(item,notify)
+          },
+          onClick = {
+              findNavController().navigate(R.id.action_mainFragment_to_moreProductFragment)
           }
 
       )
@@ -319,9 +331,6 @@ class HomeFragment : Fragment() {
 
     private fun setRecommendationAdapter(){
         recommendationAdapter = RecommendationAdapter(
-            isProductLiked = {productId->
-                homeViewModel.isProductLiked(productId)
-            },
             addProduct = {item,notify->
                 homeViewModel.addProductToLikes(item ,notify)
 
@@ -329,14 +338,15 @@ class HomeFragment : Fragment() {
             deleteProduct = { item, notify ->
                 homeViewModel.removeLikedProduct(item , notify)
             },
-            isProductBasket = {productId->
-                homeViewModel.isProductBasket(productId)
-            },
+           homeViewModel= homeViewModel,
             addProductBasket = {item,notify->
                 homeViewModel.addProductToBasket(item,notify)
             },
             deleteProductBasket = {item,notify->
                 homeViewModel.deleteProductToBasket(item,notify)
+            },
+            onClick = {
+                findNavController().navigate(R.id.action_mainFragment_to_moreProductFragment)
             }
         )
         binding.rcyRecomendations.adapter = recommendationAdapter
@@ -347,23 +357,21 @@ class HomeFragment : Fragment() {
     }
     private fun setHistoryAdapter(){
         historyAdapter = HistoryAdapter(
-            isProductLiked = {productId->
-                homeViewModel.isProductLiked(productId)
-            },
             addProduct = {item , notify ->
                 homeViewModel.addProductToLikes(item , notify)
             },
             deleteProduct = {item, notify->
                 homeViewModel.removeLikedProduct(item , notify)
             },
-            isProductBasket = {productId->
-                homeViewModel.isProductBasket(productId)
-            },
+            homeViewModel = homeViewModel,
             addProductBasket = {item,notify->
                 homeViewModel.addProductToBasket(item,notify)
             },
             deleteProductBasket = {item , notify->
                 homeViewModel.deleteProductToBasket(item,notify)
+            },
+            onClick = {
+                findNavController().navigate(R.id.action_mainFragment_to_moreProductFragment)
             }
         )
         binding.rcyHistory.adapter = historyAdapter
@@ -376,9 +384,16 @@ class HomeFragment : Fragment() {
 
 
     private fun observeUserName(){
-        homeViewModel.username.observe(viewLifecycleOwner){name->
-            binding.txtName.text = name
-            binding.btnProfilText.text = name.first().toString().uppercase()
+        homeViewModel.username.observe(viewLifecycleOwner) { name ->
+            try {
+                binding.txtName.text = name
+                binding.btnProfilText.text = name?.first().toString().uppercase()
+            }
+            catch (e:Exception){
+                binding.txtName.text = " "
+                binding.btnProfilText.text = " "
+            }
+
         }
     }
 
@@ -387,4 +402,68 @@ class HomeFragment : Fragment() {
             binding.timer.text = time
         }
     }
+
+    private fun observeStatus(){
+        homeViewModel.basketStatus.observe(viewLifecycleOwner){
+            productAdapter.notifyDataSetChanged()
+            historyAdapter.notifyDataSetChanged()
+            recommendationAdapter.notifyDataSetChanged()
+            allProductAdapter.notifyDataSetChanged()
+        }
+
+        homeViewModel.likedStatus.observe(viewLifecycleOwner){
+            productAdapter.notifyDataSetChanged()
+            historyAdapter.notifyDataSetChanged()
+            recommendationAdapter.notifyDataSetChanged()
+            allProductAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun observeProfilImage(){
+        profilDetailedViewModel.selectedProfilImage.observe(viewLifecycleOwner){
+            it?.let {
+                if (it.isNotBlank()) {
+                    profilDetailedViewModel.loadProfileImage()
+                    Glide.with(this).load(it).into(binding.SelectedImage)
+                    binding.SelectedImage.visibility = View.VISIBLE
+
+                } else {
+                    binding.SelectedImage.visibility = View.GONE
+                }
+            }
+        }
+        profilDetailedViewModel.imageVisibility.observe(viewLifecycleOwner){
+            binding.SelectedImage.visibility =it
+        }
+        profilDetailedViewModel.containerVisibility.observe(viewLifecycleOwner){
+            binding.btnProfilText.visibility =it
+        }
+    }
+
+    private fun clickMore(){
+        binding.more.setOnClickListener(){
+            findNavController().navigate(R.id.action_mainFragment_to_moreProductFragment)
+        }
+        binding.MoreSecond.setOnClickListener(){
+            findNavController().navigate(R.id.action_mainFragment_to_moreProductFragment)
+        }
+    }
+
+
+
+
+//    private fun setLocate(languageCode:String){
+//        val locale = Locale(languageCode)
+//        Locale.setDefault(locale)
+//        val config = resources.configuration
+//        config.setLocale(locale)
+//        requireContext().createConfigurationContext(config)
+//        activity?.recreate()
+//    }
+//
+//    private fun observe(){
+//        sharedViewModel.languageCode.observe(viewLifecycleOwner){
+//            setLocate(it)
+//        }
+//    }
 }

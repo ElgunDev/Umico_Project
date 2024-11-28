@@ -38,15 +38,15 @@ class PopularAdapter:RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
 
     override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
         val popularItems = diffUtil.currentList[position]
-        return holder.bind(popularItems.imageUrl , popularItems.text)
+        return holder.bind(popularItems)
     }
 
     inner class PopularViewHolder(private val binding:ItemPopularBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(imageUrl:String,text:String){
+        fun bind(popular: Popular){
             Glide.with(binding.root.context)
-                .load(imageUrl)
+                .load(popular.imageUrl)
                 .into(binding.imgPopular)
-            binding.txtPopularItem.text = text
+            binding.txtPopularItem.text = popular.text
 
         }
 

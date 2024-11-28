@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.matrix.android105_android.data.Local.db.dao.BasketProductDao
 import com.matrix.android105_android.data.Local.db.entity.BasketProductEntity
 import com.matrix.android105_android.domain.Local.Repository.BasketProduct.IBasketProductRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BasketProductImplRepository @Inject constructor(
@@ -21,7 +22,7 @@ class BasketProductImplRepository @Inject constructor(
         basketProductDao.deleteProduct(productId)
     }
 
-    override suspend fun isProductBasket(productId: String): Boolean {
+    override suspend fun isProductBasket(productId: String): Flow<Boolean> {
         return  basketProductDao.isProductBasket(productId)
     }
 
