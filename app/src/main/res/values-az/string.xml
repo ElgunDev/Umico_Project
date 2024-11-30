@@ -100,4 +100,5 @@
     <string name="GetBonus">Birbank Umico kartı üzrə 12%-dək bonus qazan</string>
     <string name="OrderCard">Kart sifariş etmək →</string>
     <string name="SearchSecond">Axtar</string>
+    <string name="installment">Taksitli ödəniş</string>
 </resources>

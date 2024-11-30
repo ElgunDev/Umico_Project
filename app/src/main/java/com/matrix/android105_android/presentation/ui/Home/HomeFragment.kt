@@ -1,7 +1,6 @@
 package com.matrix.android105_android.presentation.ui.Home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.matrix.android105_android.R
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.EndlessRecyclerViewScrollListener
 import com.matrix.android105_android.databinding.FragmentHomeBinding
 import com.matrix.android105_android.presentation.ui.ProfilDetailed.ProfilDetailedViewModel
-import com.matrix.android105_android.presentation.ui.main.MainFragment
-import com.matrix.android105_android.presentation.ui.main.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -449,21 +444,4 @@ class HomeFragment : Fragment() {
         }
     }
 
-
-
-
-//    private fun setLocate(languageCode:String){
-//        val locale = Locale(languageCode)
-//        Locale.setDefault(locale)
-//        val config = resources.configuration
-//        config.setLocale(locale)
-//        requireContext().createConfigurationContext(config)
-//        activity?.recreate()
-//    }
-//
-//    private fun observe(){
-//        sharedViewModel.languageCode.observe(viewLifecycleOwner){
-//            setLocate(it)
-//        }
-//    }
 }

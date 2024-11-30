@@ -30,7 +30,10 @@
         <activity
             android:name=".myapplication.MainActivity"
             android:windowSoftInputMode="adjustPan"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="locale|orientation|screenSize"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

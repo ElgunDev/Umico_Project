@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.common.internal.Objects.ToStringHelper
 import com.google.firebase.auth.PhoneAuthProvider
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentVerificationCodeBinding
@@ -68,7 +70,8 @@ class VerificationCodeFragment : Fragment() {
                         if (i < editTexts.size - 1) {
                             editTexts[i + 1].requestFocus()
                         }
-                    } else {
+                    }
+                    else {
                         editTexts[i].background = ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.bg_edit_text_code
@@ -82,6 +85,7 @@ class VerificationCodeFragment : Fragment() {
                     count: Int,
                     after: Int
                 ) {
+
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -100,9 +104,14 @@ class VerificationCodeFragment : Fragment() {
         binding.btnVerifityCode.setOnClickListener {
             val verificationId = args.verificationId
             val code = getCodeFromEditTexts()
-            val creditial = PhoneAuthProvider.getCredential(verificationId, code)
-           showProgressBar(true)
-            loginViewModel.verifyCodeAndLogin(creditial)
+            if (code.isEmpty()){
+                Toast.makeText(requireContext(),"kodu daxil edin" , Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val creditial = PhoneAuthProvider.getCredential(verificationId, code)
+                showProgressBar(true)
+                loginViewModel.verifyCodeAndLogin(creditial)
+            }
         }
     }
 
@@ -132,7 +141,14 @@ class VerificationCodeFragment : Fragment() {
             when (resource) {
                 is NetworkResource.Success -> {
                     if (resource.data) {
-                        findNavController().navigate(R.id.action_verificationCodeFragment_to_mainFragment)
+                        val navOptions = NavOptions.Builder()
+                            .setPopUpTo(R.id.logInFragment, true)
+                            .build()
+                        findNavController().navigate(
+                            R.id.action_verificationCodeFragment_to_mainFragment,
+                            null,
+                            navOptions
+                        )
                     } else {
                         Toast.makeText(context, "Verification failed", Toast.LENGTH_SHORT).show()
                     }

@@ -2,19 +2,26 @@ package com.matrix.android105_android.presentation.ui.Profil
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentProfilBinding
+import com.matrix.android105_android.myapplication.MainActivity
+import com.matrix.android105_android.presentation.ui.Login.LoginViewModel
 import com.matrix.android105_android.presentation.ui.ProfilDetailed.ProfilDetailedViewModel
-import com.matrix.android105_android.presentation.ui.main.SharedViewModel
+
+import com.matrix.android105_android.presentation.ui.main.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -23,7 +30,7 @@ class ProfilFragment : Fragment() {
     private lateinit var binding:FragmentProfilBinding
     private val profilViewModel:ProfilViewModel by viewModels()
     private val profilDetailedViewModel:ProfilDetailedViewModel by viewModels()
-    private val sharedViewModel:SharedViewModel by activityViewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +80,9 @@ class ProfilFragment : Fragment() {
         binding.layoutLanguage.setOnClickListener(){
             showLanguageDialog()
         }
+        binding.layoutExit.setOnClickListener(){
+            findNavController().navigate(R.id.action_mainFragment_to_logInFragment)
+        }
 
     }
 
@@ -103,10 +113,18 @@ class ProfilFragment : Fragment() {
             .setTitle(getString(R.string.select_language))
             .setItems(language){_,which->
                 when(which){
-                    0->sharedViewModel.setLanguage("en")
-                    1->sharedViewModel.setLanguage("az")
+                    0->{
+                    LocaleHelper.setLocale(requireContext() , "en")
+                    }
+                    1-> {
+                        LocaleHelper.setLocale(requireContext() , "az")
+                    }
                 }
-
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                        requireActivity().recreate()
+                    }
+                } ,100)
             }
             .show()
 

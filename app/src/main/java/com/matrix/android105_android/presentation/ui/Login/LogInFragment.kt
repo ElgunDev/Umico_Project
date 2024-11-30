@@ -12,9 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.auth
 import com.matrix.android105_android.R
 import com.matrix.android105_android.databinding.FragmentLogInBinding
 import com.matrix.android105_android.presentation.utils.NetworkResource
@@ -26,6 +29,7 @@ import java.util.Locale
 class LogInFragment : Fragment() {
     lateinit var binding: FragmentLogInBinding
     private val loginViewModel: LoginViewModel by viewModels()
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +45,10 @@ class LogInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = Firebase.auth
         setUpClickButtonColor()
         observeVerificationId()
+//        setLoginStatus()
         click()
         loginViewModel.selectedLocale.observe(viewLifecycleOwner){
             setLocale(it)
@@ -115,29 +121,55 @@ class LogInFragment : Fragment() {
     }
 
 
-    private fun setUpClickButtonColor(){
-        binding.edtPhoneNumber.addTextChangedListener(object  : TextWatcher{
+    private fun setUpClickButtonColor() {
+        binding.edtPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Burada heç bir şey lazım deyil
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length!! >= 7){
-                    binding.btnLogin.apply {
-                        backgroundTintList = ContextCompat.getColorStateList(requireContext() , R.color.Purple)
-                        isEnabled = true
+                val inputLength = s?.length ?: 0
+                 var isUpdating = false
+
+                when {
+                    inputLength in 7..9 -> {
+                        binding.btnLogin.apply {
+                            backgroundTintList = ContextCompat.getColorStateList(
+                                requireContext(),
+                                R.color.Purple
+                            )
+                            isEnabled = true
+                        }
                     }
-                }
-                else{
-                    binding.btnLogin.apply {
-                        backgroundTintList = ContextCompat.getColorStateList(requireContext() , R.color.lightGray)
-                        isEnabled = false
+                    inputLength > 9 -> {
+                        binding.edtPhoneNumber.apply {
+                            isUpdating=true
+                            setText(s?.subSequence(0, 9))
+                            setSelection(9)
+                            isUpdating=false
+                        }
+                    }
+                    else -> {
+                        binding.btnLogin.apply {
+                            backgroundTintList = ContextCompat.getColorStateList(
+                                requireContext(),
+                                R.color.lightGray
+                            )
+                            isEnabled = false
+                        }
                     }
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
-            }
 
+            }
         })
+    }
+
+    private fun setLoginStatus(){
+        if (auth.currentUser!=null){
+            findNavController().navigate(R.id.action_logInFragment_to_mainFragment)
+        }
     }
 }
