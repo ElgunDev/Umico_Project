@@ -50,6 +50,7 @@ class BasketProductFragment : Fragment() {
         fetchHistoryAdapter()
         fetchDiscountAdapter()
         fetchRecommendationAdapter()
+        clickCatalog()
         homeViewModel.fetchHistoryProducts()
         homeViewModel.fetchRecommendationProducts()
         shopViewModel.fetchProducts()
@@ -197,6 +198,11 @@ class BasketProductFragment : Fragment() {
     private fun clickMore(){
         binding.more.setOnClickListener(){
             findNavController().navigate(R.id.action_basketProductFragment_to_moreProductFragment)
+        }
+    }
+    private fun clickCatalog(){
+        binding.btnCatalog.setOnClickListener(){
+            findNavController().navigate(R.id.action_basketProductFragment_to_catalogFragment)
         }
     }
 

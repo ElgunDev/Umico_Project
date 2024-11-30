@@ -98,5 +98,6 @@
     <string name="GetBonus">Get up to 12% bonus on Birbank Umico card</string>
     <string name="OrderCard">Order a card →</string>
     <string name="SearchSecond">Search</string>
+    <string name="installment">installment payment</string>
 
 </resources>
