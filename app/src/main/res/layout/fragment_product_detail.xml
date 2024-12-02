@@ -220,11 +220,29 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-
                 android:background="@color/white"
                 >
 
@@ -323,10 +341,74 @@
                     android:layout_marginLeft="10dp"
                     />
 
+                <ImageView
+                    android:id="@+id/imgAdvertisementsSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="140dp"
+                    android:src="@drawable/ad_images"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:scaleType="fitXY"
+                    />
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/txtCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="@string/seller"
+                    />
+                <ImageView
+                    android:id="@+id/imgCompany"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtCompany"
+                    />
+
+                <TextView
+                    android:id="@+id/txtCompanyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/imgCompany"
+                    app:layout_constraintTop_toTopOf="@id/imgCompany"
+                    app:layout_constraintBottom_toTopOf="@id/txtBuyProduct"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="20dp"
+                    />
+                <TextView
+                    android:id="@+id/txtBuyProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@id/imgCompany"
+                    app:layout_constraintBottom_toBottomOf="@id/imgCompany"
+                    app:layout_constraintTop_toBottomOf="@id/txtCompanyName"
+                    android:textSize="14sp"
+                    android:text="@string/buyProduct"
+                    android:layout_marginLeft="20dp"
+                    />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         </LinearLayout>
@@ -334,5 +416,30 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutAddBasket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddBasket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/addBasket"
+            android:background="@color/Purple"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
 
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

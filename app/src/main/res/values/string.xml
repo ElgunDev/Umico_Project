@@ -2,7 +2,7 @@
     <string name="app_name">Umico</string>
     <string name="Home">Home</string>
     <string name="english">English</string>
-    <string name="azerbaijan">azerbaijan</string>
+    <string name="azerbaijan">Azerbaijan</string>
     <string name="select_language">Select Language</string>
     <string name="Shop">Shop</string>
     <string name="Bonus">Bonus</string>
@@ -99,5 +99,8 @@
     <string name="OrderCard">Order a card →</string>
     <string name="SearchSecond">Search</string>
     <string name="installment">installment payment</string>
+    <string name="seller">seller-company</string>
+    <string name="buyProduct">You are purchasing the product from this sales representative</string>
+    <string name="addBasket">Add to Basket</string>
 
 </resources>

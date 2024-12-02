@@ -903,7 +903,7 @@
                     android:id="@+id/txtLanguageSecond"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Azərbaycan"
+                    android:text=""
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/imgLanguage"
                     app:layout_constraintLeft_toLeftOf="@id/txtLanguage"
