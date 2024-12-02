@@ -48,7 +48,6 @@ class MainFragment : Fragment() {
 
 
     private fun setupViewPager() {
-
         val adapter = PageAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding.viewPager.adapter = adapter
     }

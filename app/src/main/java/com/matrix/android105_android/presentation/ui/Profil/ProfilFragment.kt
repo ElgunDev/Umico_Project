@@ -7,9 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
@@ -20,8 +18,10 @@ import com.matrix.android105_android.databinding.FragmentProfilBinding
 import com.matrix.android105_android.myapplication.MainActivity
 import com.matrix.android105_android.presentation.ui.Login.LoginViewModel
 import com.matrix.android105_android.presentation.ui.ProfilDetailed.ProfilDetailedViewModel
+import com.matrix.android105_android.tools.LanguageEnum
+import com.matrix.android105_android.tools.LanguageEnum.Companion.lowercase
+import com.matrix.android105_android.tools.SessionManager
 
-import com.matrix.android105_android.presentation.ui.main.LocaleHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -52,6 +52,7 @@ class ProfilFragment : Fragment() {
         observeUserName()
         click()
         observes()
+        bindingText()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -114,21 +115,20 @@ class ProfilFragment : Fragment() {
             .setItems(language){_,which->
                 when(which){
                     0->{
-                    LocaleHelper.setLocale(requireContext() , "en")
+                        (activity as MainActivity).changeLanguage(LanguageEnum.EN)
                     }
                     1-> {
-                        LocaleHelper.setLocale(requireContext() , "az")
+                        (activity as MainActivity).changeLanguage(LanguageEnum.AZ)
                     }
                 }
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                        requireActivity().recreate()
-                    }
-                } ,100)
             }
             .show()
 
     }
+    fun bindingText(){
+        binding.txtLanguageSecond.text = SessionManager.language.fullName
+    }
+
 
 
 }
