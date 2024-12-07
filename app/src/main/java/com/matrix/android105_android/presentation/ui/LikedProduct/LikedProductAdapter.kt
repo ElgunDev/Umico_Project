@@ -1,6 +1,5 @@
 package com.matrix.android105_android.presentation.ui.LikedProduct
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,26 +7,20 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.matrix.android105_android.data.Local.db.entity.LikedProductEntity
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.Product
 import com.matrix.android105_android.databinding.ItemProductsBinding
 
 class LikedProductAdapter():RecyclerView.Adapter<LikedProductAdapter.LikedProductViewHolder>() {
 
-    private val diffCallBack = object :DiffUtil.ItemCallback<LikedProductEntity>(){
-        override fun areItemsTheSame(
-            oldItem: LikedProductEntity,
-            newItem: LikedProductEntity
-        ): Boolean {
+    private val diffCallBack = object :DiffUtil.ItemCallback<Product>(){
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem==newItem
         }
 
-        override fun areContentsTheSame(
-            oldItem: LikedProductEntity,
-            newItem: LikedProductEntity
-        ): Boolean {
-            return  oldItem==newItem
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem==newItem
         }
+
 
     }
     private val diffUtil = AsyncListDiffer(this,diffCallBack)
@@ -47,7 +40,7 @@ class LikedProductAdapter():RecyclerView.Adapter<LikedProductAdapter.LikedProduc
     }
 
     inner class LikedProductViewHolder(private val binding: ItemProductsBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(likedProduct:LikedProductEntity) {
+        fun bind(likedProduct:Product) {
             binding.txtCreditMonth.text = likedProduct.credit
             binding.discountedPrice.text = likedProduct.discountPrice.toString()
             binding.discountRate.text = likedProduct.discountRate
@@ -62,7 +55,7 @@ class LikedProductAdapter():RecyclerView.Adapter<LikedProductAdapter.LikedProduc
 
     }
 
-    fun submitList(list: List<LikedProductEntity>){
+    fun submitList(list: List<Product>){
         diffUtil.submitList(list)
     }
 

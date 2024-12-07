@@ -2,7 +2,6 @@ package com.matrix.android105_android.presentation.di.module
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.matrix.android105_android.data.Local.db.LikedProductDatabase

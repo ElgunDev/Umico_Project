@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.matrix.android105_android.data.Local.db.entity.BasketProductEntity
 import com.matrix.android105_android.data.Local.db.entity.LikedProductEntity
-import com.matrix.android105_android.data.Local.db.repository.BasketProductImplRepository
-import com.matrix.android105_android.data.Local.db.repository.LikedProductImplRepository
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Shops.Shop
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.advertisement.Advertisement
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.Product
@@ -24,14 +22,12 @@ import com.matrix.android105_android.domain.UseCase.Home.dowry.DowryUseCase
 import com.matrix.android105_android.domain.UseCase.Home.popular.PopularUseCase
 import com.matrix.android105_android.domain.UseCase.Home.products.GetAllProductUseCase
 import com.matrix.android105_android.domain.UseCase.Home.products.GetProductUseCase
+import com.matrix.android105_android.domain.UseCase.basketProduct.BasketProductUseCase
+import com.matrix.android105_android.domain.UseCase.likedProduct.LikedProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.internal.notify
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -44,7 +40,10 @@ class HomeViewModel @Inject constructor(
     private val popularUseCase: PopularUseCase,
     private val allProductUseCase: GetAllProductUseCase,
     private val likedProductImplRepository: ILikedProductRepository,
-    private val basketProductImplRepository: IBasketProductRepository
+    private val likedProductUseCase: LikedProductUseCase,
+
+    private val basketProductImplRepository: IBasketProductRepository,
+    private val basketProductUseCase: BasketProductUseCase
 ):ViewModel() {
     private val _userName = MutableLiveData<String?>()
     val username:MutableLiveData<String?>
@@ -136,19 +135,21 @@ class HomeViewModel @Inject constructor(
 
     fun addProductToLikes(product: Product,notify: () -> Unit){
         viewModelScope.launch {
-            likedProductImplRepository.addProductToDatabase(
-                LikedProductEntity(
-                    product.id,
-                    product.credit,
-                    product.category,
-                    product.discountPrice,
-                    product.discountRate,
-                    product.image,
-                    product.name,
-                    product.price,
-                    product.rating
-                )
-            )
+//            likedProductImplRepository.addProductToDatabase(
+//                LikedProductEntity(
+//                    product.id,
+//                    product.credit,
+//                    product.category,
+//                    product.discountPrice,
+//                    product.discountRate,
+//                    product.image,
+//                    product.name,
+//                    product.price,
+//                    product.rating
+//                )
+//            )
+            likedProductUseCase.likeProduct(product.id)
+
             val isLiked =  isProductLiked(product.id)
            if (isLiked){
                updateLikedStatus(product.id,true)
@@ -159,7 +160,7 @@ class HomeViewModel @Inject constructor(
 
     fun removeLikedProduct(product: Product ,notify: () -> Unit){
         viewModelScope.launch {
-            likedProductImplRepository.deleteLikedProduct(product.id)
+            likedProductUseCase.unLikeProduct(product.id)
             val isLiked = isProductLiked(product.id)
             if (!isLiked){
                 updateLikedStatus(product.id , false)
@@ -169,28 +170,29 @@ class HomeViewModel @Inject constructor(
     }
 
     suspend fun isProductLiked(productId:String):Boolean{
-            return likedProductImplRepository.isProductLiked(productId)
+            return likedProductUseCase.isProductLiked(productId)
     }
 
     fun addProductToBasket(product: Product , notify: () -> Unit){
         viewModelScope.launch {
-            basketProductImplRepository.addProductToDatabase(
-                BasketProductEntity(
-                    product.id,
-                    product.credit,
-                    product.category,
-                    product.discountPrice,
-                    product.discountRate,
-                    product.image,
-                    product.name,
-                    product.price,
-                    product.rating,
-                    product.companyName,
-                    product.companyLogo,
-                    product.stock
-                )
-            )
-            val isBasket = isProductBasket(product.id).first()
+//            basketProductImplRepository.addProductToDatabase(
+//                BasketProductEntity(
+//                    product.id,
+//                    product.credit,
+//                    product.category,
+//                    product.discountPrice,
+//                    product.discountRate,
+//                    product.image,
+//                    product.name,
+//                    product.price,
+//                    product.rating,
+//                    product.companyName,
+//                    product.companyLogo,
+//                    product.stock
+//                )
+//            )
+            basketProductUseCase.basketProduct(product.id)
+            val isBasket = isProductBasket(product.id)
             if (isBasket){
                 updateBasketStatus(product.id , true)
                 notify()
@@ -199,8 +201,8 @@ class HomeViewModel @Inject constructor(
     }
     fun deleteProductToBasket(product: Product , notify: () -> Unit){
         viewModelScope.launch {
-            basketProductImplRepository.deleteBasketProduct(product.id)
-            val isBasket = isProductBasket(product.id).first()
+            basketProductUseCase.unBasketProduct(product.id)
+            val isBasket = isProductBasket(product.id)
             if (!isBasket){
                 updateBasketStatus(product.id , false)
                 notify()
@@ -208,8 +210,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    suspend fun isProductBasket(productId: String):Flow<Boolean>{
-        return basketProductImplRepository.isProductBasket(productId)
+    suspend fun isProductBasket(productId: String):Boolean{
+        return basketProductUseCase.isProductBasket(productId)
     }
 
 

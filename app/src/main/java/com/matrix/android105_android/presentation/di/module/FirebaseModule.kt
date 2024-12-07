@@ -13,6 +13,8 @@ import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Produ
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.popular.PopularImplRepository
 import com.matrix.android105_android.data.Network.fireBase.Repository.Profil.PersonalInformationRepository
 import com.matrix.android105_android.data.Network.fireBase.Repository.Profil.ProfilImagesRepository
+import com.matrix.android105_android.data.Network.fireBase.Repository.basketProduct.BasketProductImplRepository
+import com.matrix.android105_android.data.Network.fireBase.Repository.likedProduct.LikedProductImplRepository
 import com.matrix.android105_android.data.Network.fireBase.Repository.shop.brends.BrandImplRepository
 import com.matrix.android105_android.data.Network.fireBase.Repository.shop.seller.SellerImplRepository
 import com.matrix.android105_android.domain.Network.FireBase.Repository.Bonus.Partners.IPartnersRepository
@@ -22,6 +24,8 @@ import com.matrix.android105_android.domain.Network.FireBase.Repository.Home.dow
 import com.matrix.android105_android.domain.Network.FireBase.Repository.Home.popular.IPopularRepository
 import com.matrix.android105_android.domain.Network.FireBase.Repository.Home.product.IAllProductRepository
 import com.matrix.android105_android.domain.Network.FireBase.Repository.Home.product.IProductRepository
+import com.matrix.android105_android.domain.Network.FireBase.Repository.basketProduct.IBasketProductRepository
+import com.matrix.android105_android.domain.Network.FireBase.Repository.likedProduct.ILikedProductRepository
 import com.matrix.android105_android.domain.Network.FireBase.Repository.profil.IPersonalInformationRepository
 import com.matrix.android105_android.domain.Network.FireBase.Repository.profil.IProfilImagesRepository
 import com.matrix.android105_android.domain.Network.FireBase.Repository.profil.IUserRepository
@@ -54,74 +58,5 @@ object FirebaseModule {
         return FirebaseStorage.getInstance()
     }
 
-    @Provides
-    @Singleton
-    fun provideUserRepository(firestore: FirebaseFirestore): IUserRepository {
-        return  UserImplRepository(firestore)
-    }
 
-    @Provides
-    @Singleton
-    fun provideAdRepository(firestore: FirebaseFirestore): IAdRepository {
-        return AdImplRepository(firestore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideShopRepository(firestore: FirebaseFirestore): IShopsRepository {
-        return ShopsImplRepository(firestore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideProfilImagesRepository(firebaseStorage: FirebaseStorage , firestore: FirebaseFirestore):IProfilImagesRepository{
-        return ProfilImagesRepository(firestore , firebaseStorage)
-    }
-
-    @Provides
-    @Singleton
-    fun providePersonalInformationRepository(fireStore: FirebaseFirestore):IPersonalInformationRepository{
-        return PersonalInformationRepository(fireStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideProductRepository(fireStore: FirebaseFirestore): IProductRepository {
-        return ProductImplRepository(fireStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideDowryRepository(fireStore: FirebaseFirestore): IDowryRepository {
-        return DowryImplRepository(fireStore)
-    }
-
-    @Provides
-    @Singleton
-    fun providePartnersRepository(fireStore: FirebaseFirestore):IPartnersRepository{
-        return PartnersRepository(fireStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideBrandsRepository(fireStore: FirebaseFirestore):IBrandRepository{
-        return BrandImplRepository(fireStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideSellerRepository(fireStore: FirebaseFirestore):ISellerRepository{
-        return SellerImplRepository(fireStore)
-    }
-
-    @Provides
-    @Singleton
-    fun providePopularRepository(fireStore: FirebaseFirestore): IPopularRepository {
-        return PopularImplRepository(fireStore)
-    }
-    @Provides
-    @Singleton
-    fun provideAllProductRepository(fireStore: FirebaseFirestore): IAllProductRepository {
-        return AllProductImplRepository(fireStore)
-    }
 }
