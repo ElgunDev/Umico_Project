@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import com.matrix.android105_android.presentation.ui.Home.HomeViewModel
 import com.matrix.android105_android.presentation.ui.Home.RecommendationAdapter
 import com.matrix.android105_android.presentation.ui.Shop.DiscountAdapter
 import com.matrix.android105_android.presentation.ui.Shop.ShopViewModel
+import com.matrix.android105_android.presentation.utils.NetworkResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,6 +56,7 @@ class BasketProductFragment : Fragment() {
         homeViewModel.fetchHistoryProducts()
         homeViewModel.fetchRecommendationProducts()
         shopViewModel.fetchProducts()
+        basketViewModel.fetchBasketProduct()
     }
 
     private fun setUpAdapter(){
@@ -70,19 +73,32 @@ class BasketProductFragment : Fragment() {
         )
         binding.rcyProducts.adapter = adapter
         binding.rcyProducts.layoutManager = LinearLayoutManager(requireContext() , LinearLayoutManager.VERTICAL , false)
-        homeViewModel.basketProduct.observe(viewLifecycleOwner){
-            if (it.isNullOrEmpty()){
-                binding.scrollFirst.visibility =View.GONE
-                binding.layoutBottom.visibility =View.GONE
-                binding.scrollSecond.visibility =View.VISIBLE
-            }
-            else {
-                binding.scrollFirst.visibility =View.VISIBLE
-                binding.layoutBottom.visibility =View.VISIBLE
-                binding.scrollSecond.visibility =View.GONE
-                adapter.submitList(it)
+        basketViewModel.basketProduct.observe(viewLifecycleOwner){resource->
+            when(resource) {
+                is NetworkResource.Success-> {
+                    val product = resource.data
+                    showProgressBar(false)
+                    if (product.isNullOrEmpty()) {
+                        binding.scrollFirst.visibility = View.GONE
+                        binding.layoutBottom.visibility = View.GONE
+                        binding.scrollSecond.visibility = View.VISIBLE
+                    } else {
+                        binding.scrollFirst.visibility = View.VISIBLE
+                        binding.layoutBottom.visibility = View.VISIBLE
+                        binding.scrollSecond.visibility = View.GONE
+                        adapter.submitList(product)
+                    }
+                }
+                is NetworkResource.Error->{
+                    Toast.makeText(requireContext(),resource.message , Toast.LENGTH_SHORT).show()
+                    showProgressBar(false)
+                }
+                is NetworkResource.Loading->{
+                    showProgressBar(true)
+                }
             }
         }
+
 
         adapter.updateFragmentTotalPrice ={
         updateTotalPrice()
@@ -92,6 +108,18 @@ class BasketProductFragment : Fragment() {
         }
         adapter.updateFragmentLastPrice={
             updateLastPrice()
+        }
+
+    }
+   private fun showProgressBar(show:Boolean){
+        if (show){
+            binding.progressBar4.visibility = View.VISIBLE
+            binding.scrollFirst.visibility = View.GONE
+            binding.layoutBottom.visibility = View.GONE
+            binding.scrollSecond.visibility = View.GONE
+        }
+        else{
+            binding.progressBar4.visibility = View.INVISIBLE
         }
 
     }

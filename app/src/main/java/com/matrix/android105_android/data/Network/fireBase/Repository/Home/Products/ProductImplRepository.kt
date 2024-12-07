@@ -24,6 +24,7 @@ class ProductImplRepository @Inject constructor(
             val companyName = it.getString("company_name") ?: ""
             val companyLogo = it.getString("company_logo") ?: ""
             val stock = (it.get("stock") as? Long) ?: 0L
+            val quantity = (it.get("quantity") as? Int)?:1
             Product(
                 id,
                 credit,
@@ -37,7 +38,8 @@ class ProductImplRepository @Inject constructor(
                 companyName,
                 companyLogo,
                 null,
-                stock
+                stock,
+                quantity
             )
         }
     }

@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.matrix.android105_android.data.Local.db.entity.BasketProductEntity
 import com.matrix.android105_android.data.Network.fireBase.Repository.Home.Products.Product
 import com.matrix.android105_android.databinding.ItemBasketBinding
-import com.matrix.android105_android.domain.Local.Repository.BasketProduct.IBasketProductRepository
 
 class BasketProductAdapter(
     private val increaseClick:(String,Long)->Unit,
@@ -18,19 +16,13 @@ class BasketProductAdapter(
 ):RecyclerView.Adapter<BasketProductAdapter.BasketProductViewHolder>() {
 
 
-    private val diffCallBack = object :DiffUtil.ItemCallback<BasketProductEntity>(){
-        override fun areItemsTheSame(
-            oldItem: BasketProductEntity,
-            newItem: BasketProductEntity
-        ): Boolean {
+    private val diffCallBack = object :DiffUtil.ItemCallback<Product>(){
+        override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem==newItem
         }
 
-        override fun areContentsTheSame(
-            oldItem: BasketProductEntity,
-            newItem: BasketProductEntity
-        ): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
+            return oldItem==newItem
         }
 
 
@@ -54,7 +46,7 @@ class BasketProductAdapter(
 
     inner class BasketProductViewHolder(private val binding:ItemBasketBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(basketProduct:BasketProductEntity){
+        fun bind(basketProduct:Product){
             Glide.with(binding.root.context)
                 .load(basketProduct.companyLogo)
                 .into(binding.imgCompany)
@@ -79,6 +71,9 @@ class BasketProductAdapter(
                     updateTotalPayment(basketProduct.discountPrice , basketProduct.quantity)
                     binding.tvNumber.text = basketProduct.quantity.toString()
                     increaseClick(basketProduct.id, basketProduct.stock)
+                    updateFragmentTotalPrice()
+                    updateFragmentDiscountPrice()
+                    updateFragmentLastPrice()
                 }
             }
             binding.btnMinus.setOnClickListener(){
@@ -88,6 +83,9 @@ class BasketProductAdapter(
                     updateTotalPayment(basketProduct.discountPrice , basketProduct.quantity)
                     binding.tvNumber.text = basketProduct.quantity.toString()
                     decreaseClick(basketProduct.id,basketProduct.stock)
+                    updateFragmentTotalPrice()
+                    updateFragmentDiscountPrice()
+                    updateFragmentLastPrice()
                 }
             }
         }
@@ -110,7 +108,7 @@ class BasketProductAdapter(
     }
 
 
-    fun submitList(list: List<BasketProductEntity>){
+    fun submitList(list: List<Product>){
         diffUtil.submitList(list)
         updateFragmentTotalPrice()
         updateFragmentDiscountPrice()
