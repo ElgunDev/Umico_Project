@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.matrix.android105_android.R
+import com.matrix.android105_android.presentation.ui.main.MainFragment
 import com.matrix.android105_android.tools.LanguageEnum
 import com.matrix.android105_android.tools.LanguageEnum.Companion.lowercase
 import com.matrix.android105_android.tools.LocaleWrapper
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun recreateActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, MainFragment::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         finish()

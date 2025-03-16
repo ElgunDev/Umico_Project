@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.matrix.android105_android.presentation.ui.Home.HomeFragment"
+        android:name="com.matrix.android105_android.presentation.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
 
     </fragment>
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.matrix.android105_android.presentation.ui.Shop.ShopFragment"
+        android:name="com.matrix.android105_android.presentation.ui.shop.ShopFragment"
         android:label="fragment_shop"
         tools:layout="@layout/fragment_shop" >
 
@@ -27,12 +27,12 @@
         tools:layout="@layout/fragment_bonus" />
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.matrix.android105_android.presentation.ui.Services.ServicesFragment"
+        android:name="com.matrix.android105_android.presentation.ui.services.ServicesFragment"
         android:label="fragment_services"
         tools:layout="@layout/fragment_services" />
     <fragment
         android:id="@+id/profilFragment"
-        android:name="com.matrix.android105_android.presentation.ui.Profil.ProfilFragment"
+        android:name="com.matrix.android105_android.presentation.ui.profil.ProfilFragment"
         android:label="fragment_profil"
         tools:layout="@layout/fragment_profil" >
 
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.matrix.android105_android.presentation.ui.Login.LogInFragment"
+        android:name="com.matrix.android105_android.presentation.ui.login.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action
@@ -101,18 +101,18 @@
     </fragment>
     <fragment
         android:id="@+id/likedProductFragment"
-        android:name="com.matrix.android105_android.presentation.ui.LikedProduct.LikedProductFragment"
+        android:name="com.matrix.android105_android.presentation.ui.likedProduct.LikedProductFragment"
         android:label="fragment_liked_product"
         tools:layout="@layout/fragment_liked_product" />
     <fragment
         android:id="@+id/umicoMarketFragment"
-        android:name="com.matrix.android105_android.presentation.ui.LikedProduct.UmicoMarketFragment"
+        android:name="com.matrix.android105_android.presentation.ui.likedProduct.UmicoMarketFragment"
         android:label="fragment_umico_market"
         tools:layout="@layout/fragment_umico_market" />
 
     <fragment
         android:id="@+id/basketProductFragment"
-        android:name="com.matrix.android105_android.presentation.ui.BasketProduct.BasketProductFragment"
+        android:name="com.matrix.android105_android.presentation.ui.basketProduct.BasketProductFragment"
         android:label="fragment_basket_product"
         tools:layout="@layout/fragment_basket_product" >
         <action
@@ -124,12 +124,12 @@
     </fragment>
     <fragment
         android:id="@+id/umicoBonusFragment"
-        android:name="com.matrix.android105_android.presentation.ui.LikedProduct.UmicoBonusFragment"
+        android:name="com.matrix.android105_android.presentation.ui.likedProduct.UmicoBonusFragment"
         android:label="fragment_umico_bonus"
         tools:layout="@layout/fragment_umico_bonus" />
     <fragment
         android:id="@+id/profilDetailedFragment"
-        android:name="com.matrix.android105_android.presentation.ui.ProfilDetailed.ProfilDetailedFragment"
+        android:name="com.matrix.android105_android.presentation.ui.profilDetailed.ProfilDetailedFragment"
         android:label="fragment_profil_detailed"
         tools:layout="@layout/fragment_profil_detailed" >
         <action
@@ -138,12 +138,12 @@
     </fragment>
     <fragment
         android:id="@+id/personalInformationFragment"
-        android:name="com.matrix.android105_android.presentation.ui.ProfilDetailed.PersonalInformationFragment"
+        android:name="com.matrix.android105_android.presentation.ui.profilDetailed.PersonalInformationFragment"
         android:label="fragment_personal_information"
         tools:layout="@layout/fragment_personal_information" />
     <fragment
         android:id="@+id/moreProductFragment"
-        android:name="com.matrix.android105_android.presentation.ui.MoreProduct.MoreProductFragment"
+        android:name="com.matrix.android105_android.presentation.ui.moreProduct.MoreProductFragment"
         android:label="fragment_more_product"
         tools:layout="@layout/fragment_more_product" >
         <action
@@ -155,7 +155,7 @@
     </fragment>
     <fragment
         android:id="@+id/catalogFragment"
-        android:name="com.matrix.android105_android.presentation.ui.Catalog.CatalogFragment"
+        android:name="com.matrix.android105_android.presentation.ui.catalog.CatalogFragment"
         android:label="fragment_catalog"
         tools:layout="@layout/fragment_catalog" >
         <action
@@ -167,7 +167,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.matrix.android105_android.presentation.ui.ProductDetail.ProductDetailFragment"
+        android:name="com.matrix.android105_android.presentation.ui.productDetail.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail" />
 </navigation>

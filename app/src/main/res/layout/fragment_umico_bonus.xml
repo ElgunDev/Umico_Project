@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.LikedProduct.UmicoBonusFragment">
+    tools:context=".presentation.ui.likedProduct.UmicoBonusFragment">
     <ImageView
         android:id="@+id/imgLike"
         android:layout_width="200dp"

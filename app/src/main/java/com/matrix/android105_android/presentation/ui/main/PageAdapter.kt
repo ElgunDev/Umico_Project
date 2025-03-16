@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.matrix.android105_android.presentation.ui.Home.HomeFragment
-import com.matrix.android105_android.presentation.ui.Profil.ProfilFragment
-import com.matrix.android105_android.presentation.ui.Services.ServicesFragment
-import com.matrix.android105_android.presentation.ui.Shop.ShopFragment
+import com.matrix.android105_android.presentation.ui.home.HomeFragment
+import com.matrix.android105_android.presentation.ui.profil.ProfilFragment
+import com.matrix.android105_android.presentation.ui.services.ServicesFragment
+import com.matrix.android105_android.presentation.ui.shop.ShopFragment
 import com.matrix.android105_android.presentation.ui.bonus.BonusFragment
 
 

@@ -1,9 +1,9 @@
 package com.matrix.android105_android.presentation.di.module
 
-import com.matrix.android105_android.data.Network.fireBase.Repository.Login.AuthImplRepository
-import com.matrix.android105_android.domain.Network.FireBase.Repository.Login.IAuthRepository
-import com.matrix.android105_android.domain.UseCase.Login.ILoginUseCase
-import com.matrix.android105_android.domain.UseCase.Login.LoginUseCaseImpl
+import com.matrix.android105_android.data.network.fireBase.Repository.login.AuthImplRepository
+import com.matrix.android105_android.domain.network.fireBase.repository.login.IAuthRepository
+import com.matrix.android105_android.domain.useCase.login.ILoginUseCase
+import com.matrix.android105_android.domain.useCase.login.LoginUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.matrix.android105_android.data.Network.fireBase.Repository.Bonus.Partners.Partners
-import com.matrix.android105_android.domain.UseCase.Bonus.Partners.PartnersUseCase
+import com.matrix.android105_android.data.network.fireBase.Repository.bonus.partners.Partners
+import com.matrix.android105_android.domain.useCase.bonus.Partners.PartnersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

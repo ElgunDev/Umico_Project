@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.matrix.android105_android.data.Network.fireBase.Repository.Bonus.Partners.Partners
+import com.matrix.android105_android.data.network.fireBase.Repository.bonus.partners.Partners
 import com.matrix.android105_android.databinding.ItemPartnersBinding
 
 class PartnersAdapter:RecyclerView.Adapter<PartnersAdapter.PartnersViewHolder>() {
