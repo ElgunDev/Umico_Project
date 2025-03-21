@@ -9,7 +9,7 @@ Technologies Used
 - Firebase Authentication and Firestore
 - Room Database
 
-## screenshots
+## Screenshots
 
 ![](https://github.com/ElgunDev/Umico_Project/blob/main/Umico%20App%20ss/Screenshot%202025-03-22%20005106.png?raw=true)
 ![](https://github.com/ElgunDev/Umico_Project/blob/main/Umico%20App%20ss/Screenshot%202025-03-22%20005205.png?raw=true)
